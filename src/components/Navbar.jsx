@@ -15,11 +15,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full max-w-[70%] mx-auto">
-      <nav className="flex justify-between py-3">
+    <div className="w-full bg-white z-10 border border-black/5">
+      <nav className="flex justify-between py-3.5 max-w-[80%] mx-auto ">
         <Logo />
         
-        <ul className="flex items-center gap-3">
+        <ul className="items-center gap-3 sm:flex hidden">
           {ITEMS.map((item) => (
             <NavbarItem
               key={item.title}
