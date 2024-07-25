@@ -1,6 +1,6 @@
-import Logo from "./Logo";
+import Logo from "../ui/Logo";
 import NavbarItem from "./NavbarItem";
-import Avatar from "./ui/Avatar";
+import Avatar from "../ui/Avatar";
 
 const ITEMS = [
   { title: "Inicio", link: "/" },
@@ -15,10 +15,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full bg-white z-10 border border-black/5">
+    <div className="w-full fixed bg-white z-10 border-b border-black/20 shadow">
       <nav className="flex justify-between py-3.5 max-w-[80%] mx-auto ">
         <Logo />
-        
+
         <ul className="items-center gap-3 sm:flex hidden">
           {ITEMS.map((item) => (
             <NavbarItem
