@@ -2,6 +2,7 @@ import Navbar from "../components/navbar/Navbar";
 import Hero from "../components/overview/hero/Hero";
 import OfferButton from "../components/overview/hero/OfferButton";
 import Publications from "../components/overview/publications/Publications";
+import Team from "../components/overview/us/Team";
 import Section from "../components/Section";
 
 const Overview = () => {
@@ -45,9 +46,15 @@ const Overview = () => {
         </div>
       </Section>
 
-      <Section>
+      <Section className="h-full">
         <div className="mx-auto h-full w-full sm:max-w-[80%]">
           <Publications />
+        </div>
+      </Section>
+
+      <Section className="bg-[#f8ebe3]">
+        <div className="mx-auto h-full w-full sm:max-w-[80%]">
+          <Team />
         </div>
       </Section>
     </div>

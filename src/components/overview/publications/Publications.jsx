@@ -23,8 +23,22 @@ const PUBLICATIONS = [
   {
     title: "Casa familiar en el centro",
     location: "España 2100, Rosario, Santa Fe",
-    image:
-      "https://img.freepik.com/foto-gratis/villa-lujo-piscina-espectacular-diseno-contemporaneo-arte-digital-bienes-raices-hogar-casa-propiedad-ge_1258-150749.jpg?size=626&ext=jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
+    attributes: [
+      { label: "Dormitorios", value: 3 },
+      { label: "Baños", value: 2 },
+      { label: "Superficie", value: "180 m²" },
+      { label: "Precio / mensual", value: "$50.000 ARS" },
+    ],
+    vendor: "Juan Perez",
+    number: "341-1234567",
+    email: "juanperez@gmail.com",
+  },
+
+  {
+    title: "Casa familiar en el centro",
+    location: "España 2100, Rosario, Santa Fe",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
     attributes: [
       { label: "Dormitorios", value: 3 },
       { label: "Baños", value: 2 },
@@ -40,23 +54,7 @@ const PUBLICATIONS = [
     title: "Casa familiar en el centro",
     location: "España 2100, Rosario, Santa Fe",
     image:
-      "https://img.freepik.com/foto-gratis/villa-lujo-piscina-espectacular-diseno-contemporaneo-arte-digital-bienes-raices-hogar-casa-propiedad-ge_1258-150749.jpg?size=626&ext=jpg",
-    attributes: [
-      { label: "Dormitorios", value: 3 },
-      { label: "Baños", value: 2 },
-      { label: "Superficie", value: "180 m²" },
-      { label: "Precio / mensual", value: "$50.000 ARS" },
-    ],
-    vendor: "Juan Perez",
-    number: "341-1234567",
-    email: "juanperez@gmail.com",
-  },
-
-  {
-    title: "Casa familiar en el centro",
-    location: "España 2100, Rosario, Santa Fe",
-    image:
-      "https://img.freepik.com/foto-gratis/villa-lujo-piscina-espectacular-diseno-contemporaneo-arte-digital-bienes-raices-hogar-casa-propiedad-ge_1258-150749.jpg?size=626&ext=jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
     attributes: [
       { label: "Dormitorios", value: 3 },
       { label: "Baños", value: 2 },

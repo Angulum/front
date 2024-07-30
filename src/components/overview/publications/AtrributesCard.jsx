@@ -3,7 +3,7 @@ const AttributesCard = ({ title, value }) => {
     <div className="flex flex-col">
       <p className="text-[#575757] ">{title}</p>
 
-      <p className="text-[20px] text-black">{value}</p>
+      <p className="text-[18px] text-black">{value}</p>
     </div>
   );
 };
