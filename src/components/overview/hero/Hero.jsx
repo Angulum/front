@@ -1,11 +1,11 @@
-import HomeIcon from "../icons/HomeIcon";
+import HomeIcon from "../../icons/HomeIcon";
 import OverviewButton from "./OverviewButton";
-import HotelIcon from "../icons/HotelIcon";
-import MegaHomeIcon from "../icons/MegaHomeIcon";
+import HotelIcon from "../../icons/HotelIcon";
+import MegaHomeIcon from "../../icons/MegaHomeIcon";
 
 const Hero = () => {
   return (
-    <div className="flex my-auto items-center text-center text-[#333333] flex-col">
+    <div className="flex my-auto items-center text-center text-[#333333] flex-col z-[2]">
       <h1 className="text-[50px] font-semibold">Tu hogar, nuestro objetivo.</h1>
       <h2 className="text-[22px]">
         Busca inmuebles en venta o en alquiler en Rosario
