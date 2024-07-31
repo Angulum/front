@@ -52,10 +52,12 @@ const Overview = () => {
         </div>
       </Section>
 
-      <Section className="bg-[#f8ebe3]">
-        <div className="mx-auto h-full w-full sm:max-w-[80%]">
+      <Section className="bg-[#f8ebe3] relative">
+        <div className="mx-auto h-full w-full sm:max-w-[80%] z-[10]">
           <Team />
         </div>
+
+        <img className="absolute bottom-0 left-0 z-[4] w-[50%]" src="./fondo.png" />
       </Section>
     </div>
   );

@@ -23,31 +23,24 @@ const PUBLICATIONS = [
   {
     title: "Casa familiar en el centro",
     location: "España 2100, Rosario, Santa Fe",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
     attributes: [
       { label: "Dormitorios", value: 3 },
       { label: "Baños", value: 2 },
       { label: "Superficie", value: "180 m²" },
-      { label: "Precio / mensual", value: "$50.000 ARS" },
-    ],
-    vendor: "Juan Perez",
-    number: "341-1234567",
-    email: "juanperez@gmail.com",
-  },
+      { label: "Precio / mensual", value: "$98.000 ARS", color: "green" },
 
-  {
-    title: "Casa familiar en el centro",
-    location: "España 2100, Rosario, Santa Fe",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
-    attributes: [
-      { label: "Dormitorios", value: 3 },
-      { label: "Baños", value: 2 },
-      { label: "Superficie", value: "180 m²" },
-      { label: "Precio / mensual", value: "$50.000 ARS" },
     ],
     vendor: "Juan Perez",
     number: "341-1234567",
     email: "juanperez@gmail.com",
+    tags: [
+      {
+        text: "En venta",
+        type: "sale",
+      },
+    ],
   },
 
   {
@@ -59,11 +52,51 @@ const PUBLICATIONS = [
       { label: "Dormitorios", value: 3 },
       { label: "Baños", value: 2 },
       { label: "Superficie", value: "180 m²" },
-      { label: "Precio / mensual", value: "$50.000 ARS" },
+      { label: "Precio / mensual", value: "$50.000 ARS", color: "green" },
     ],
     vendor: "Juan Perez",
     number: "341-1234567",
     email: "juanperez@gmail.com",
+    tags: [
+      {
+        text: "En venta",
+        type: "sale",
+      },
+      {
+        text: "En alquiler",
+        type: "rent",
+      },
+    ],
+  },
+
+  {
+    title: "Casa familiar en el centro",
+    location: "España 2100, Rosario, Santa Fe",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqggPgc78Q4Zpzo1S9fOWc7l_5a2cXAoC0Vg&s",
+    attributes: [
+      { label: "Dormitorios", value: 3 },
+      { label: "Baños", value: 2 },
+      { label: "Superficie", value: "180 m²" },
+      { label: "Precio / mensual", value: "$150.000 ARS", color: "green" },
+    ],
+    vendor: "Juan Perez",
+    number: "341-1234567",
+    email: "juanperez@gmail.com",
+    tags: [
+      {
+        text: "En venta",
+        type: "sale",
+      },
+      {
+        text: "En alquiler",
+        type: "rent",
+      },
+      {
+        text: "Destacada",
+        type: "outstanding",
+      },
+    ],
   },
 ];
 

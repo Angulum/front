@@ -1,9 +1,14 @@
 import AttributesCard from "./AtrributesCard";
+import Tag from "../../ui/Tag";
 
 const PublicationCard = ({ publication }) => {
   return (
     <div className="flex flex-col relative border border-black/20 rounded-lg overflow-hidden">
-      {/*<div className="absolute top-4 left-0">[TAGS]</div>*/}
+      <div className="absolute top-4 left-4 flex items-center gap-2">
+        {publication.tags.map((t, i) => {
+          return <Tag key={i} text={t.text} type={t.type} />;
+        })}
+      </div>
 
       <div>
         <img
@@ -20,7 +25,7 @@ const PublicationCard = ({ publication }) => {
 
         <div className="grid grid-cols-2 w-full gap-4 space-y-1 mt-4">
           {publication.attributes.map((a, i) => {
-            return <AttributesCard key={i} title={a.label} value={a.value} />;
+            return <AttributesCard key={i} title={a.label} value={a.value} color={a.color} />;
           })}
         </div>
 
