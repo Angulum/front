@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/navbar/Navbar";
 import Hero from "../components/overview/hero/Hero";
 import OfferButton from "../components/overview/hero/OfferButton";
@@ -10,7 +11,7 @@ const Overview = () => {
     <div className="relative">
       <Navbar />
 
-      <Section className="overflow-hidden relative ">
+      <Section className="overflow-hidden relative bg-[#F7F7F7] ">
         <div className="grid lg:grid-cols-2 mx-auto h-full w-full sm:max-w-[80%]">
           <Hero />
 
@@ -18,7 +19,7 @@ const Overview = () => {
             <img src="./hero.jpg" />
           </div>
 
-          <div className="sm:flex z-[1] absolute h-[150vh] rotate-[20deg] w-full top-[-300px] left-[-700px] border border-black/20 shadow-xl bg-white" />
+          <div className="sm:flex z-[1] absolute h-[150vh] rotate-[20deg] w-full top-[-300px] left-[-700px] border border-black/20 shadow-xl bg-[#F7F7F7]" />
         </div>
       </Section>
 
@@ -46,7 +47,7 @@ const Overview = () => {
         </div>
       </Section>
 
-      <Section className="h-full">
+      <Section className="h-full bg-[#F7F7F7]">
         <div className="mx-auto h-full w-full sm:max-w-[80%]">
           <Publications />
         </div>
@@ -59,6 +60,8 @@ const Overview = () => {
 
         <img className="absolute bottom-0 left-0 z-[4] w-[50%]" src="./fondo.png" />
       </Section>
+
+      <Footer />
     </div>
   );
 };
