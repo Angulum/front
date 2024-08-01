@@ -1,11 +1,11 @@
-import Input from "../login/Input";
+import Input from "../ui/Input";
 
 const Form = () => {
   return (
     <>
       <form action="">
         <label htmlFor="">Email</label>
-        <Input placeholder={"example@mail.com"} type={"email"} />
+        <input placeholder={"example@mail.com"} type={"email"} />
         <label htmlFor="">Nombre y apellido</label>
         <Input placeholder={"Peter Jhonson"} type={"text"} />
         <label htmlFor="">Número de teléfono</label>
