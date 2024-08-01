@@ -5,7 +5,7 @@ import MegaHomeIcon from "../../icons/MegaHomeIcon";
 
 const Hero = () => {
   return (
-    <div className="flex my-auto items-center text-center text-[#333333] flex-col z-[2]">
+    <div className="flex my-auto items-center text-center text-[#333333] flex-col z-[17]">
       <h1 className="text-[50px] font-semibold">Tu hogar, nuestro objetivo.</h1>
       <h2 className="text-[22px]">
         Busca inmuebles en venta o en alquiler en Rosario

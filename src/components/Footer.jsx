@@ -45,14 +45,16 @@ const Footer = ({ inverted }) => {
         </div>
       </div>
 
-      <div className="border-t border-black/30 flex flex-col p-4">
-        <p>
-          © 2024 by <span className="font-semibold">Angulum</span>. All rights
-          reserved.
-        </p>
-        <div>
-          <a href="#">Términos y Condiciones</a>
-          <a href="#">Política de Privacidad</a>
+      <div className="border-t border-black/30 flex flex-col py-4">
+        <div className="mx-auto h-full w-full sm:max-w-[80%] py-2">
+          <p>
+            © 2024 by <span className="font-semibold">Angulum</span>. All rights
+            reserved.
+          </p>
+          <div>
+            <a href="#">Términos y Condiciones</a>
+            <a href="#">Política de Privacidad</a>
+          </div>
         </div>
       </div>
     </footer>
