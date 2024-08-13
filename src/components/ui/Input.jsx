@@ -1,6 +1,6 @@
 import { cn } from "../../lib/utils";
 
-const LoginInput = ({ type, placeholder, onClick, className }) => {
+const LoginInput = ({ type, placeholder, onClick, className, ...props }) => {
   return (
     <>
       <input
@@ -11,6 +11,7 @@ const LoginInput = ({ type, placeholder, onClick, className }) => {
           className
         )}
         onClick={onClick}
+        {...props}
       />
     </>
   );
