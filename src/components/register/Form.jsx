@@ -5,11 +5,31 @@ import Input from "../ui/Input";
 
 const Form = () => {
 
-  // const [email, setEmail] = useState('');
-  // const [fullName, setFullName] = useState('');
-  // const [phone, setPhone] = useState('');
-  // const [password, setPassword] = useState('');
-  const [check, setChecked] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState({
+    length: false,
+    upperCase: false,
+    lowerCase: false,
+    number: false
+  });
+
+  const enableButton = () => { 
+    return passwordCheck.length && passwordCheck.upperCase && passwordCheck.lowerCase && passwordCheck.number;
+  };
+
+  const passwordMatch = (password) => {
+    const length = password.length >= 8;
+    const upperCase = /[A-Z]/.test(password);
+    const lowerCase = /[a-z]/.test(password);
+    const number = /[0-9]/.test(password);
+
+    setPasswordCheck({
+      length,
+      upperCase,
+      lowerCase,
+      number
+    });
+  };
+
   const [subscribe, setSubscribe] = useState(true);
 
   const handleButton = (e) => {
@@ -56,15 +76,46 @@ const Form = () => {
         Contraseña
       </label>
       <Input
+        type="password"
+        onChange={(e) => passwordMatch(e.target.value)}
         placeholder={"*********"}
         className={"border border-gray-300 rounded-md p-1"}
       />
-      <div className="flex flex-col lg:gap-4 whitespace-nowrap lg:flex-row p-2">
-        <label className="text-[2vh]"><input type="checkbox" checked={check} onChange={() => setChecked(true)} className="text-[2vh] rounded-full" disabled /> Más de 8 caracteres</label>
-        <label className="text-[2vh]"><input type="checkbox" checked={check} onChange={() => setChecked(true)} className="text-[2vh] rounded-full" disabled /> Una mayúscula</label>
-        <label className="text-[2vh]"><input type="checkbox" checked={check} onChange={() => setChecked(true)} className="text-[2vh] rounded-full" disabled /> Una minúscula</label>
-        <label className="text-[2vh]"><input type="checkbox" checked={check} onChange={() => setChecked(true)} className="text-[2vh] rounded-full" disabled /> Un número</label>
-      </div>
+<div className="flex flex-col lg:gap-4 whitespace-nowrap lg:flex-row p-2">
+  <label className="text-[2vh] flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={passwordCheck.length}
+      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
+    /> 
+    Más de 8 caracteres
+  </label>
+  <label className="text-[2vh] flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={passwordCheck.upperCase}
+      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
+    /> 
+    Una mayúscula
+  </label>
+  <label className="text-[2vh] flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={passwordCheck.lowerCase}
+      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
+    /> 
+    Una minúscula
+  </label>
+  <label className="text-[2vh] flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={passwordCheck.number}
+      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
+    /> 
+    Un número
+  </label>
+</div>
+
 
       <label className="flex items-center">
         <input className="p-1" type="checkbox" checked={subscribe} onChange={() => setSubscribe(!subscribe)} />
@@ -72,7 +123,7 @@ const Form = () => {
           Quiero recibir información sobre actualizaciones, cambios, eventos y promociones
         </span>
       </label>
-      <Button type="submit" className="mt-4" variant="primary">
+      <Button type="submit" className="mt-4" variant="primary" disabled={!enableButton()}>
         Registrate
       </Button>
       <span className="ml-12 text-[1.6vh] whitespace-nowrap py-2 justify-center">Al crear la cuenta, estarás aceptando los Términos de uso y la Politica de privacidad</span>
