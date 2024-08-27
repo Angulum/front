@@ -40,22 +40,22 @@ const Overview = () => {
         <div className="grid lg:grid-cols-4 py-12 sm:max-w-[80%] mx-auto z-[2] gap-8">
           <OfferButton
             offer="Departamentos en alquiler mas vistos"
-            href="/comprar"
+            href="/buy"
           />
 
           <OfferButton
             offer="Las propiedades recien publicadas"
-            href="/comprar"
+            href="/buy"
           />
 
           <OfferButton
             offer="Las propiedades que bajaron de precio"
-            href="/comprar"
+            href="/buy"
           />
 
           <OfferButton
             offer="Departamentos más nuevos en alquier"
-            href="/comprar"
+            href="/buy"
           />
         </div>
       </Section>

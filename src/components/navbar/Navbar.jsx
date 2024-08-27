@@ -4,7 +4,7 @@ import Avatar from "../ui/Avatar";
 
 const ITEMS = [
   { title: "Inicio", link: "/" },
-  { title: "Comprar", link: "/comprar" },
+  { title: "Comprar", link: "/buy" },
   { title: "Vender", link: "/vender" },
   { title: "Contacto", link: "/contacto" },
 ];
@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full fixed bg-[#F7F7F7] z-20 border-b border-black/20 shadow-sm">
+    <div className="w-full sticky top-0 bg-[#F7F7F7] z-20 border-b border-black/20 shadow-sm">
       <nav className="flex justify-between py-3.5 max-w-[80%] mx-auto ">
         <Logo />
 

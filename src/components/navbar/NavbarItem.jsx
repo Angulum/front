@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
 
 const NavbarItem = ({ title, link, active }) => {
@@ -8,7 +9,7 @@ const NavbarItem = ({ title, link, active }) => {
         "hover:bg-[#F5F5F5] ": !active,
       })}
     >
-      <a href={link}>{title}</a>
+      <Link to={link}>{title}</Link>
     </li>
   );
 };
