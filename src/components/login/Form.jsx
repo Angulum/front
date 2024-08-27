@@ -1,9 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 const Form = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const disableLogin = () => {
+    if (email === "" || password === "") {
+      return true;
+    }
+    return false;
+  };
+
   const handleButton = (e) => {
     e.preventDefault();
 
@@ -22,22 +41,34 @@ const Form = () => {
   };
 
   return (
-    <form className="grid grid-rows-4 mt-4" onSubmit={(e) => handleButton(e)}>
-      <label className="p-1 font-semibold" htmlFor="email">
-        Email
-      </label>
-      <Input
-        placeholder={"exapmle@mail.com"}
-        className={"border border-gray-300 rounded-md p-1"}
-      />
-      <label className="p-1 font-semibold" htmlFor="password">
-        Contraseña
-      </label>
-      <Input
-        placeholder={"*********"}
-        className={"border border-gray-300 rounded-md p-1"}
-      />
-      <Button type="submit" className="mt-4" variant="primary">
+    <form
+      className="flex flex-col gap-2 mt-3"
+      onSubmit={(e) => handleButton(e)}
+    >
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold text-xs" htmlFor="email">
+          Email
+        </label>
+        <Input
+          onChange={handleEmailChange}
+          placeholder={"johnson@gmail.com"}
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold text-xs" htmlFor="password">
+          Contraseña
+        </label>
+        <Input
+          onChange={handlePasswordChange}
+          placeholder={"*********"}
+        />
+      </div>
+      <Button
+        disabled={disableLogin()}
+        type="submit"
+        className="mt-4"
+        variant="primary"
+      >
         Iniciar sesión
       </Button>
     </form>

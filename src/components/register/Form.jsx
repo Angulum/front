@@ -2,18 +2,30 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import { Checkbox } from "../ui/Checkbox";
+import { Eye, EyeOff } from "lucide-react";
 
 const Form = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
 
   const [passwordCheck, setPasswordCheck] = useState({
     length: false,
     upperCase: false,
     lowerCase: false,
-    number: false
+    number: false,
   });
 
-  const enableButton = () => { 
-    return passwordCheck.length && passwordCheck.upperCase && passwordCheck.lowerCase && passwordCheck.number;
+  const enableButton = () => {
+    return (
+      passwordCheck.length &&
+      passwordCheck.upperCase &&
+      passwordCheck.lowerCase &&
+      passwordCheck.number
+    );
   };
 
   const passwordMatch = (password) => {
@@ -26,7 +38,7 @@ const Form = () => {
       length,
       upperCase,
       lowerCase,
-      number
+      number,
     });
   };
 
@@ -49,84 +61,105 @@ const Form = () => {
     });
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+
+    passwordMatch(e.target.value);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleViewPassword = () => {
+    setViewPassword(!viewPassword);
+  };
+
   return (
-    <form className="grid grid-rows-4 mt-4" onSubmit={(e) => handleButton(e)}>
-      <label className="p-1 font-semibold" htmlFor="email">
-        Email
-      </label>
-      <Input
-        placeholder={"peterjhonshon@gmail.com"}
-        className={"border border-gray-300 rounded-md p-1"}
-      />
-            <label className="p-1 font-semibold" htmlFor="email">
-        Nombre y apellido
-      </label>
-      <Input
-        placeholder={"Peter Jhonson"}
-        className={"border border-gray-300 rounded-md p-1"}
-      />
-            <label className="p-1 font-semibold" htmlFor="email">
-        Télefono
-      </label>
-      <Input
-        placeholder={"3417654321"}
-        className={"border border-gray-300 rounded-md p-1"}
-      />
-      <label className="p-1 font-semibold" htmlFor="password">
-        Contraseña
-      </label>
-      <Input
-        type="password"
-        onChange={(e) => passwordMatch(e.target.value)}
-        placeholder={"*********"}
-        className={"border border-gray-300 rounded-md p-1"}
-      />
-<div className="flex flex-col lg:gap-4 whitespace-nowrap lg:flex-row p-2">
-  <label className="text-[2vh] flex items-center gap-2">
-    <input
-      type="checkbox"
-      checked={passwordCheck.length}
-      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
-    /> 
-    Más de 8 caracteres
-  </label>
-  <label className="text-[2vh] flex items-center gap-2">
-    <input
-      type="checkbox"
-      checked={passwordCheck.upperCase}
-      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
-    /> 
-    Una mayúscula
-  </label>
-  <label className="text-[2vh] flex items-center gap-2">
-    <input
-      type="checkbox"
-      checked={passwordCheck.lowerCase}
-      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
-    /> 
-    Una minúscula
-  </label>
-  <label className="text-[2vh] flex items-center gap-2">
-    <input
-      type="checkbox"
-      checked={passwordCheck.number}
-      className="rounded-full w-3 h-3 appearance-none border-2 border-gray-400 checked:bg-[#4F4F4F] checked:border-transparent"
-    /> 
-    Un número
-  </label>
-</div>
+    <form
+      className="flex flex-col gap-2 mt-4"
+      onSubmit={(e) => handleButton(e)}
+    >
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold text-xs" htmlFor="password">
+          Nombre y apellido
+        </label>
+        <Input onChange={handleNameChange} placeholder={"Peter Jhonson"} />
+      </div>
 
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold text-xs" htmlFor="password">
+          Email
+        </label>
+        <Input
+          onChange={handleEmailChange}
+          placeholder={"jhonshonpeter@gmail.com"}
+        />
+      </div>
 
-      <label className="flex items-center">
-        <input className="p-1" type="checkbox" checked={subscribe} onChange={() => setSubscribe(!subscribe)} />
-        <span className="text-[1.7vh] whitespace-nowrap ml-2 items-center">   
-          Quiero recibir información sobre actualizaciones, cambios, eventos y promociones
-        </span>
-      </label>
-      <Button type="submit" className="mt-4" variant="primary" disabled={!enableButton()}>
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold text-xs" htmlFor="password">
+          Télefono
+        </label>
+
+        <Input onChange={handlePhoneChange} placeholder={"3417654321"} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold text-xs" htmlFor="password">
+          Contraseña
+        </label>
+        <div className="relative w-full">
+          <Input
+            onChange={handlePasswordChange}
+            placeholder={"*********"}
+            className={"relative w-full"}
+            type={viewPassword ? "text" : "password"}
+          />
+          <button
+            onClick={handleViewPassword}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2"
+          >
+            {!viewPassword ? (
+              <Eye className="w-5 h-5 stroke-1" />
+            ) : (
+              <EyeOff className="w-5 h-5 stroke-1" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-4 grid-cols-2 py-2">
+        <Checkbox label="Una mayúscula" checked={passwordCheck.upperCase} />
+
+        <Checkbox label="Una minúscula" checked={passwordCheck.lowerCase} />
+
+        <Checkbox label="Un número" checked={passwordCheck.number} />
+
+        <Checkbox label="8 caracteres" checked={passwordCheck.length} />
+      </div>
+
+      <Button
+        type="submit"
+        className="mt-4"
+        variant="primary"
+        disabled={!enableButton()}
+      >
         Registrate
       </Button>
-      <span className="ml-12 text-[1.6vh] whitespace-nowrap py-2 justify-center">Al crear la cuenta, estarás aceptando los Términos de uso y la Politica de privacidad</span>
+      <span className="text-sm whitespace-nowrap items-center">
+        Al registrarte, aceptas nuestras{" "}
+        <span className=" mr-1 font-semibold">Condiciones de uso</span>y
+        <span className=" ml-1 font-semibold">Política de privacidad.</span>
+      </span>
     </form>
   );
 };
