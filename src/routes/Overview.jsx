@@ -8,7 +8,6 @@ import Publications from "../components/overview/publications/Publications";
 import Team from "../components/overview/us/Team";
 import Section from "../components/Section";
 
-import { useEffect, useState } from "react";
 
 const Overview = () => {
   //const [users, setUsers] = useState();

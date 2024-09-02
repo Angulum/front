@@ -53,7 +53,7 @@ const Footer = ({ inverted }) => {
           </p>
           <div>
             <a href="#">Términos y Condiciones</a>
-            <a href="#">Política de Privacidad</a>
+            <a href="#"> Política de Privacidad</a>
           </div>
         </div>
       </div>
