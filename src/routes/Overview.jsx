@@ -24,14 +24,12 @@ const Overview = () => {
 
       <Section className="overflow-hidden relative bg-[#F7F7F7] ">
         <div className="grid lg:grid-cols-2 mx-auto h-full w-full sm:max-w-[80%]">
-          <div className="absolute w-full h-full bg-black/60 z-[15] left-0" />
           <Hero />
 
-          <div className="h-full w-full absolute xl:flex right-0 hidden">
+          <div className="h-full w-full xl:flex right-0 hidden">
             <img src="./hero.jpg " className="object-cover h-full w-full" />
           </div>
 
-          <div className="hidden xl:flex z-[16] absolute h-[150vh] rotate-[20deg] w-full top-[-300px] left-[-700px] border border-black/20 shadow-xl bg-[#F7F7F7]" />
         </div>
       </Section>
 
