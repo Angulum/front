@@ -1,7 +1,7 @@
 
 const Sercher = () => {
     return (
-        <div className="flex space-x-4 p-4 w-full">
+        <div className="flex space-x-4 p-4 w-full overflow-hidden relative bg-[#F7F7F7]">
           <div className=" flex flex-nowrap gap-5">
             <input
                 type="text"
