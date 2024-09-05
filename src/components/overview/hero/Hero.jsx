@@ -2,6 +2,7 @@ import HomeIcon from "../../icons/HomeIcon";
 import OverviewButton from "./OverviewButton";
 import HotelIcon from "../../icons/HotelIcon";
 import MegaHomeIcon from "../../icons/MegaHomeIcon";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -17,9 +18,15 @@ const Hero = () => {
       />
       <p className="mt-10 text-black">¿Qué estás buscando ahora?</p>
       <div className="mt-6 flex gap-6">
-        <OverviewButton label="Alquilar" icon={<HomeIcon />} />
-        <OverviewButton label="Comprar" icon={<HotelIcon />} />
-        <OverviewButton label="Vender" icon={<MegaHomeIcon />} />
+        <Link to={("/buy")}>
+          <OverviewButton label="Alquilar" icon={<HomeIcon />} />
+        </Link>
+        <Link to={("/buy")}>
+          <OverviewButton label="Comprar" icon={<HotelIcon />} />
+        </Link>
+        <Link to={("/sell")}>
+          <OverviewButton label="Vender" icon={<MegaHomeIcon />} />
+        </Link>
       </div>
     </div>
   );

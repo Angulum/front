@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import { Eye, EyeOff } from "lucide-react";
 
 const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -21,6 +23,10 @@ const Form = () => {
       return true;
     }
     return false;
+  };
+
+  const handleViewPassword = () => {
+    setViewPassword(!viewPassword);
   };
 
   const handleButton = (e) => {
@@ -40,6 +46,7 @@ const Form = () => {
     });
   };
 
+
   return (
     <form
       className="flex flex-col gap-2 mt-3"
@@ -58,10 +65,26 @@ const Form = () => {
         <label className="font-semibold text-xs" htmlFor="password">
           Contraseña
         </label>
-        <Input
-          onChange={handlePasswordChange}
-          placeholder={"*********"}
-        />
+        <div className="relative w-full">
+          <Input
+            onChange={handlePasswordChange}
+            placeholder={"*********"}
+            className={"relative w-full"}
+            type={viewPassword ? "text" : "password"}
+            value={password}
+          />
+          <button
+            onClick={handleViewPassword}
+            type="button"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2"
+          >
+            {!viewPassword ? (
+              <Eye className="w-5 h-5 stroke-1" />
+            ) : (
+              <EyeOff className="w-5 h-5 stroke-1" />
+            )}
+          </button>
+        </div>
       </div>
       <Button
         disabled={disableLogin()}

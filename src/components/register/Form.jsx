@@ -28,7 +28,11 @@ const Form = () => {
       passwordCheck.length &&
       passwordCheck.upperCase &&
       passwordCheck.lowerCase &&
-      passwordCheck.number
+      passwordCheck.number &&
+      email &&
+      password &&
+      name &&
+      phone
     );
   };
 

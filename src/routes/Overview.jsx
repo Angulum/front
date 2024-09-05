@@ -24,13 +24,9 @@ const Overview = () => {
       <Navbar />
 
       <Section className="overflow-hidden relative bg-[#F7F7F7] ">
-        <div className="grid lg:grid-cols-2 mx-auto h-full w-full sm:max-w-[80%]">
+        <div className="grid lg:grid-cols-2 mx-auto h-full w-full sm:max-w-full">
           <Hero />
-
-          <div className="h-full w-full xl:flex right-0 hidden">
-            <img src="./hero.jpg " className="object-cover h-full w-full" />
-          </div>
-
+          <img src="./hero.jpg " className="object-cover h-full w-screen" />
         </div>
       </Section>
 
