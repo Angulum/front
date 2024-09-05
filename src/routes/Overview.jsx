@@ -9,7 +9,6 @@ import Team from "../components/overview/us/Team";
 import Section from "../components/Section";
 import { useEffect } from "react";
 
-
 const Overview = () => {
   //const [users, setUsers] = useState();
 
@@ -37,10 +36,7 @@ const Overview = () => {
             href="/buy"
           />
 
-          <OfferButton
-            offer="Las propiedades recien publicadas"
-            href="/buy"
-          />
+          <OfferButton offer="Las propiedades recien publicadas" href="/buy" />
 
           <OfferButton
             offer="Las propiedades que bajaron de precio"
