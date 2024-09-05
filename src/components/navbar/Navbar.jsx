@@ -11,7 +11,7 @@ const ITEMS = [
 
 const Navbar = () => {
   const calculeActive = (link) => {
-    return document.location.href.includes(link);
+    return document.location.pathname === link;
   };
 
   return (

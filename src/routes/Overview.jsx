@@ -7,27 +7,25 @@ import OfferButton from "../components/overview/hero/OfferButton";
 import Publications from "../components/overview/publications/Publications";
 import Team from "../components/overview/us/Team";
 import Section from "../components/Section";
+import { useEffect } from "react";
 
 const Overview = () => {
   //const [users, setUsers] = useState();
 
-  /*useEffect(() => {
-    fetch("http://localhost:8080/user/get-all")
+  useEffect(() => {
+    fetch("https://server-angulum.koyeb.app/user/get")
       .then((res) => res.json())
       .then((data) => console.log(data))
-  }, []);*/
+  }, []);
 
   return (
     <div className="relative">
       <Navbar />
 
       <Section className="overflow-hidden relative bg-[#F7F7F7] ">
-        <div className="grid lg:grid-cols-2 mx-auto h-full w-full">
-          <div className=" sm:max-w-[80%] m-auto">
-            <Hero />
-          </div>
-
-          <img src="./hero.jpg " className="object-cover h-full w-full" />
+        <div className="grid lg:grid-cols-2 mx-auto h-full w-full sm:max-w-full">
+          <Hero />
+          <img src="./hero.jpg " className="object-cover h-full w-screen" />
         </div>
       </Section>
 

@@ -38,7 +38,10 @@ const Buy = () => {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
         if (containerRef.current) {
-            containerRef.current.scrollIntoView({ behavior: 'smooth' , block: 'start' });
+            window.scrollTo({
+                top: containerRef.current.offsetTop,
+                behavior: 'smooth',
+            });
         }
     };
 

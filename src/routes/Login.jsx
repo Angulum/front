@@ -1,5 +1,6 @@
 import Form from "../components/login/Form";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -21,7 +22,9 @@ const Login = () => {
         <Form />
         <span className="font-family text-sm ml-auto w-fit">
           ¿Olvidaste tu contraseña?{" "}
-          <button className="font-semibold">Recuperala aquí</button>
+          <Link to={("/changePassword")}>
+            <button className="font-semibold">Recuperala aquí</button>
+          </Link>
         </span>
       </div>
       <img

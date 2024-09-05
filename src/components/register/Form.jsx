@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { Checkbox } from "../ui/Checkbox";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,9 @@ const Form = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
+
+
+  const navigate = useNavigate();
 
   const [passwordCheck, setPasswordCheck] = useState({
     length: false,
@@ -24,7 +28,11 @@ const Form = () => {
       passwordCheck.length &&
       passwordCheck.upperCase &&
       passwordCheck.lowerCase &&
-      passwordCheck.number
+      passwordCheck.number &&
+      email &&
+      password &&
+      name &&
+      phone
     );
   };
 
@@ -42,23 +50,34 @@ const Form = () => {
     });
   };
 
-  const [subscribe, setSubscribe] = useState(true);
 
-  const handleButton = (e) => {
+  const handleButton = async (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/user/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Email: "hellojavaaasd",
-        password: "pepei",
-        name: "fdfdg",
-        role: "user",
-      }),
-    });
+    const user = {
+      email,
+      password,
+      name,
+    };
+
+    try {
+      const response = await fetch("https://server-angulum.koyeb.app/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        console.log("User registered successfully");
+        navigate("/login");
+      } else {
+        console.error("Registration failed");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   const handleEmailChange = (e) => {
@@ -67,7 +86,6 @@ const Form = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-
     passwordMatch(e.target.value);
   };
 
@@ -84,33 +102,26 @@ const Form = () => {
   };
 
   return (
-    <form
-      className="flex flex-col gap-2 mt-4"
-      onSubmit={(e) => handleButton(e)}
-    >
+    <form className="flex flex-col gap-2 mt-4" onSubmit={handleButton}>
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="password">
+        <label className="font-semibold text-xs" htmlFor="name">
           Nombre y apellido
         </label>
-        <Input onChange={handleNameChange} placeholder={"Peter Jhonson"} />
+        <Input onChange={handleNameChange} placeholder={"Peter Jhonson"} value={name} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="password">
+        <label className="font-semibold text-xs" htmlFor="email">
           Email
         </label>
-        <Input
-          onChange={handleEmailChange}
-          placeholder={"jhonshonpeter@gmail.com"}
-        />
+        <Input onChange={handleEmailChange} placeholder={"jhonshonpeter@gmail.com"} value={email} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="password">
+        <label className="font-semibold text-xs" htmlFor="phone">
           Télefono
         </label>
-
-        <Input onChange={handlePhoneChange} placeholder={"3417654321"} />
+        <Input onChange={handlePhoneChange} placeholder={"3417654321"} value={phone} />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -123,9 +134,11 @@ const Form = () => {
             placeholder={"*********"}
             className={"relative w-full"}
             type={viewPassword ? "text" : "password"}
+            value={password}
           />
           <button
             onClick={handleViewPassword}
+            type="button"
             className="absolute right-4 top-1/2 transform -translate-y-1/2"
           >
             {!viewPassword ? (
@@ -139,11 +152,8 @@ const Form = () => {
 
       <div className="grid lg:grid-cols-4 grid-cols-2 py-2">
         <Checkbox label="Una mayúscula" checked={passwordCheck.upperCase} />
-
         <Checkbox label="Una minúscula" checked={passwordCheck.lowerCase} />
-
         <Checkbox label="Un número" checked={passwordCheck.number} />
-
         <Checkbox label="8 caracteres" checked={passwordCheck.length} />
       </div>
 
@@ -157,8 +167,8 @@ const Form = () => {
       </Button>
       <span className="text-sm whitespace-nowrap items-center">
         Al registrarte, aceptas nuestras{" "}
-        <span className=" mr-1 font-semibold">Condiciones de uso</span>y
-        <span className=" ml-1 font-semibold">Política de privacidad.</span>
+        <span className="mr-1 font-semibold">Condiciones de uso</span> y
+        <span className="ml-1 font-semibold">Política de privacidad.</span>
       </span>
     </form>
   );
