@@ -7,6 +7,7 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import ChangePassword from "./routes/ChangePassword";
 import Buy from "./routes/Buy";
+import Sell from "./routes/Sell";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/buy",
     element: <Buy />,
+  },
+  {
+    path: "/sell",
+    element: <Sell />,
   },
 ]);
 
