@@ -9,6 +9,8 @@ const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
+  
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -19,7 +21,7 @@ const Form = () => {
   };
 
   const disableLogin = () => {
-    if (email === "" || password === "") {
+    if (email === "" || password === "" || password.length < 8) {
       return true;
     }
     return false;
@@ -32,7 +34,7 @@ const Form = () => {
   const handleButton = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/user/register", {
+    fetch("http://localhost:8080/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
