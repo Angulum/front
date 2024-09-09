@@ -1,6 +1,7 @@
 import Logo from "../ui/Logo";
 import NavbarItem from "./NavbarItem";
 import Avatar from "../ui/Avatar";
+import { useEffect, useState } from "react";
 
 const ITEMS = [
   { title: "Inicio", link: "/" },
@@ -10,6 +11,17 @@ const ITEMS = [
 ];
 
 const Navbar = () => {
+  
+  const [isLogged, setIsLogged] = useState(false);
+
+  const hasToken = () => {
+    return localStorage.getItem("token") !== null;
+  };
+
+  useEffect(() => {
+    setIsLogged(hasToken());
+  }, []);
+
   const calculeActive = (link) => {
     return document.location.pathname === link;
   };
@@ -20,14 +32,22 @@ const Navbar = () => {
         <Logo />
 
         <ul className="items-center gap-3 sm:flex hidden">
-          {ITEMS.map((item) => (
-            <NavbarItem
-              key={item.title}
-              title={item.title}
-              link={item.link}
-              active={calculeActive(item.link)}
-            />
-          ))}
+          {ITEMS.map((item) => {
+            let link = item.link;
+
+            if (item.title === "Vender") {
+              link = isLogged ? "/vender" : "/login";
+            }
+
+            return (
+              <NavbarItem
+                key={item.title}
+                title={item.title}
+                link={link}
+                active={calculeActive(item.link)}
+              />
+            );
+          })}
         </ul>
 
         <Avatar />

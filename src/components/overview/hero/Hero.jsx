@@ -3,8 +3,20 @@ import OverviewButton from "./OverviewButton";
 import HotelIcon from "../../icons/HotelIcon";
 import MegaHomeIcon from "../../icons/MegaHomeIcon";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+
+  const [isLogged, setIsLogged] = useState(false);
+
+  const hasToken = () => {
+    return localStorage.getItem("token") !== null;
+  };
+
+  useEffect(() => {
+    setIsLogged(hasToken());
+  }, []);
+
   return (
     <div className="flex my-auto items-center text-center text-[#333333] flex-col z-[17]">
       <h1 className="text-[50px] font-semibold">Tu hogar, nuestro objetivo.</h1>
@@ -24,7 +36,7 @@ const Hero = () => {
         <Link to={("/buy")}>
           <OverviewButton label="Comprar" icon={<HotelIcon />} />
         </Link>
-        <Link to={("/sell")}>
+        <Link to={isLogged ? ("/vender") : ("/vender")}>
           <OverviewButton label="Vender" icon={<MegaHomeIcon />} />
         </Link>
       </div>
