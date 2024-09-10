@@ -16,7 +16,8 @@ const NewProperties = () => {
     metrosCubicos: '',
     descripcion: '',
     imagenes: [],
-    documentos: []
+    documentos: [],
+    termsAccepted: false
   });
 
   // Manejar el cambio en los campos de los formularios
@@ -72,6 +73,13 @@ const NewProperties = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+  };
+
+  const handleTermsChange = (e) => {
+    setFormData({
+      ...formData,
+      termsAccepted: e.target.checked,
+    });
   };
 
   return (
@@ -229,7 +237,7 @@ const NewProperties = () => {
           {step === 2 && (
             <div className="w-full ml-2 min-w-full space-y-4">
               <h2 className="text-xl font-semibold mb-6 text-center">Imágenes y descripción</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium">Descripción</label>
                   <textarea
@@ -288,6 +296,65 @@ const NewProperties = () => {
                       Seleccionar documentos
                     </label>
                   </div>
+                </div>
+
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  className="w-full bg-gray-800 text-white py-2 rounded-md mt-4"
+                >
+                  Siguiente paso
+                </Button>
+              </form>
+            </div>
+          )}
+
+          {/* Mejoras de la Publicación */}
+          {step === 3 && (
+            <div className="w-full ml-2 min-w-full space-y-4">
+              <h2 className="text-xl font-semibold mb-6 text-center">Mejoras de la Publicación</h2>
+              <form className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium">¿Quieres destacar tu publicación?</label>
+                  <select
+                    name="mejora"
+                    value={formData.mejora || ""}
+                    onChange={handleChange}
+                    className="w-full mt-1 p-2 border rounded-md"
+                  >
+                    <option value="">Selecciona una opción</option>
+                    <option value="destacar">Destacar publicación</option>
+                    <option value="noDestacar">No destacar</option>
+                  </select>
+                </div>
+
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  className="w-full bg-gray-800 text-white py-2 rounded-md mt-4"
+                >
+                  Siguiente paso
+                </Button>
+              </form>
+            </div>
+          )}
+
+          {/* Aceptación de Términos y Condiciones */}
+          {step === 4 && (
+            <div className="w-full ml-2 min-w-full space-y-4">
+              <h2 className="text-xl font-semibold mb-6 text-center">Términos y Condiciones</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium">
+                    <input
+                      type="checkbox"
+                      name="termsAccepted"
+                      checked={formData.termsAccepted}
+                      onChange={handleTermsChange}
+                      className="mr-2"
+                    />
+                    Acepto los términos y condiciones
+                  </label>
                 </div>
 
                 <div className="flex justify-between mt-6">

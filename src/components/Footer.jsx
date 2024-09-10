@@ -1,4 +1,5 @@
 import Logo from "./ui/Logo";
+import { Link } from "react-router-dom";
 
 const Footer = ({ inverted }) => {
   return (
@@ -15,15 +16,19 @@ const Footer = ({ inverted }) => {
 
           <div className="flex flex-col gap-6">
             <p className="text-xl font-semibold">Navegación</p>
-            <ul className="space-y-2">
+            <ul className="flex flex-col gap-3">
               <li>
-                <a href="#">Inicio</a>
+                <Link to={("/")}>
+                  Inicio
+                </Link>
               </li>
+                <Link to={("/buy")}>
+                  Publicaciones
+                </Link>
               <li>
-                <a href="#">Publicaciones</a>
-              </li>
-              <li>
-                <a href="#">Contacto</a>
+                <Link to={("/contact")}>
+                  Contacto
+                </Link>
               </li>
             </ul>
           </div>

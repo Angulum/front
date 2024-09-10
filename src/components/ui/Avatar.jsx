@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import OverviewButton from "../overview/hero/OverviewButton";
+import { LogIn } from 'lucide-react';
 
 const Avatar = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -37,7 +38,7 @@ const Avatar = () => {
         <Link to={("/login")}>
           <OverviewButton 
             label="Iniciar sesión"
-            icon={""}
+            icon={<LogIn />}
           >
           </OverviewButton>
         </Link>
