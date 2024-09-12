@@ -9,7 +9,7 @@ const Button = ({ variant, className, children, ...props }) => {
           "bg-[#4F4F4F] hover:bg-[#000000]": variant === "primary",
           "bg-white hover:border hover:border-[#000000]":
             variant === "secondary",
-          "bg-transparent border border-[#F5F5F5]": variant === "outline",
+          "bg-transparent border border-[#F5F5F5] text-black": variant === "outline",
         },
         className
       )}
