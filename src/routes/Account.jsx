@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ChevronLeftIcon,
-  DoorClosed,
-  LogInIcon,
   LogOutIcon,
 } from "lucide-react";
 import { AccountGeneral } from "../components/account/General";
@@ -19,8 +17,8 @@ export const Account = () => {
   };
 
   return (
-    <main className="max-w-full w-full h-full max-h-screen flex">
-      <div className="h-[100vh] w-[300px] border-r border-black/10 flex flex-col justify-between ">
+    <main className="max-w-full w-full overflow-hidden h-full max-h-screen flex">
+      <div className="sticky h-[100vh] w-[300px] border-r border-black/10 flex flex-col justify-between ">
         <div>
           <div className="h-20 border-b border-black/10 flex items-center px-6">
             <Link to="/" className="flex items-center gap-1 font-semibold">
@@ -82,14 +80,14 @@ export const Account = () => {
         </div>
       </div>
 
-      <div className="w-full">
-        <div className="w-full border-b border-black/10 h-20 flex items-center px-10"></div>
+      <div className="overflow-y-scroll relative w-full">
+          <div className="sticky top-0 bg-white z-30 w-full border-b border-black/10 h-20 flex items-center px-10"></div>
 
-        <div className="p-12">
-          {activeTab === "general" && <AccountGeneral />}
-          {activeTab === "estates" && <AccountEstates />}
-          {activeTab === "security" && <AccountSecurity />}
-        </div>
+          <div className="sticky p-12">
+            {activeTab === "general" && <AccountGeneral />}
+            {activeTab === "estates" && <AccountEstates />}
+            {activeTab === "security" && <AccountSecurity />}
+          </div>
       </div>
     </main>
   );

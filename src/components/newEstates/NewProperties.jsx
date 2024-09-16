@@ -89,7 +89,6 @@ const NewProperties = () => {
           className={`flex transition-transform duration-800 ease-in-out`}
           style={{ transform: `translateX(-${(step - 1) * 1}%)` }}
         >
-          {/* Formulario de Detalles de la Propiedad */}
           {step === 1 && (
             <div className="w-full min-w-full space-y-4">
               <h2 className="text-xl font-semibold mb-6 text-center">Detalles de la Propiedad</h2>
@@ -233,7 +232,6 @@ const NewProperties = () => {
             </div>
           )}
 
-          {/* Formulario de Imágenes y Descripción */}
           {step === 2 && (
             <div className="w-full ml-2 min-w-full space-y-4">
               <h2 className="text-xl font-semibold mb-6 text-center">Imágenes y descripción</h2>
@@ -309,7 +307,6 @@ const NewProperties = () => {
             </div>
           )}
 
-          {/* Mejoras de la Publicación */}
           {step === 3 && (
             <div className="w-full ml-2 min-w-full space-y-4">
               <h2 className="text-xl font-semibold mb-6 text-center">Mejoras de la Publicación</h2>
@@ -339,7 +336,6 @@ const NewProperties = () => {
             </div>
           )}
 
-          {/* Aceptación de Términos y Condiciones */}
           {step === 4 && (
             <div className="w-full ml-2 min-w-full space-y-4">
               <h2 className="text-xl font-semibold mb-6 text-center">Términos y Condiciones</h2>

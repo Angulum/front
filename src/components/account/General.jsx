@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Sun, Moon } from "lucide-react";
 
 export const AccountGeneral = () => {
   const [nombre, setNombre] = useState("Peter Jhonson");
@@ -18,7 +19,7 @@ export const AccountGeneral = () => {
       <h2 className=" font-semibold text-2xl">Configuración general</h2>
 
       {/* Sección de información */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-8">
+      <div className="grid grid-cols-1 w-fit gap-8 py-8">
         {/* Tu información */}
         <div className="col-span-1 border border-black/10 p-4 rounded-xl">
           <h3 className="text-lg font-medium mb-4">Tu información</h3>
@@ -65,27 +66,26 @@ export const AccountGeneral = () => {
           <div className="flex space-x-4">
             <button
               className={`p-4 border rounded-lg ${
-                tema === "light" ? "border-gray-800" : "border-gray-300"
+                tema === "light" ? "border-gray-800 font-bold bg-gray-100" : "border-gray-300"
               }`}
               onClick={() => setTema("light")}
             >
-              <img
-                src="light_theme.png"
-                alt="Light Theme"
-                className="w-24 h-12 object-cover"
+              <Sun className={`w-24 h-12 object-cover ${
+                tema === "light" ? "fill-gray-900" : "fill-white"
+              }`}
               />
-              Light
+                Light
             </button>
             <button
               className={`p-4 border rounded-lg ${
-                tema === "dark" ? "border-gray-800" : "border-gray-300"
+                tema === "dark" ? "border-gray-800 font-bold bg-gray-100" : "border-gray-300"
               }`}
               onClick={() => setTema("dark")}
             >
-              <img
-                src="dark_theme.png"
-                alt="Dark Theme"
-                className="w-24 h-12 object-cover"
+              <Moon
+              className={`w-24 h-12 object-cover ${
+                tema === "dark" ? "fill-gray-900" : "fill-white"
+              }`}
               />
               Dark
             </button>
