@@ -26,10 +26,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full sticky top-0 bg-[#F7F7F7] z-20 border-b border-black/20 shadow-sm">
+    <div className="w-full fixed top-0 bg-transparent z-[999] border-b border-black/10">
       <nav className="flex justify-between py-3.5 max-w-[80%] mx-auto ">
         <Logo />
 
+        {/* 
         <ul className="items-center gap-3 sm:flex hidden">
           {ITEMS.map((item) => {
             let link = item.link;
@@ -48,6 +49,7 @@ const Navbar = () => {
             );
           })}
         </ul>
+              */}
 
         <Avatar />
       </nav>

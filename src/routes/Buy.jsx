@@ -55,30 +55,33 @@ const Buy = () => {
   return (
     <div className="relative">
       <Navbar />
-      <Searcher />
-      <div className="flex flex-col gap-4 relative bg-[#F7F7F7]">
-        {/* Contenedor con ref para el scroll */}
-        <div ref={containerRef}>
-          <CardGrid cards={currentProperties} />
+
+      <div className="mt-4">
+        <Searcher />
+        <div className="flex flex-col gap-4 relative bg-white">
+          {/* Contenedor con ref para el scroll */}
+          <div ref={containerRef}>
+            <CardGrid cards={currentProperties} />
+          </div>
+          {/* Paginación */}
+          <div className="flex justify-center gap-2 mt-4">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                className={`px-4 py-2 rounded ${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-300 text-black"
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
-        {/* Paginación */}
-        <div className="flex justify-center gap-2 mt-4">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              className={`px-4 py-2 rounded ${
-                currentPage === index + 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-black"
-              }`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

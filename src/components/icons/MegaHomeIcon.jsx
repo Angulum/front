@@ -1,10 +1,12 @@
-const MegaHomeIcon = () => {
+const MegaHomeIcon = ({ className, props }) => {
   return (
     <svg
       width="18"
       height="19"
       viewBox="0 0 18 19"
       fill="none"
+      className={className}
+      {...props}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clipPath="url(#clip0_3_405)">

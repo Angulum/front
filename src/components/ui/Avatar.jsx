@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import OverviewButton from "../overview/hero/OverviewButton";
-import { LogIn } from 'lucide-react';
+
+import Button from "./Button";
 
 const Avatar = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -14,7 +14,7 @@ const Avatar = () => {
   useEffect(() => {
     if (hasToken()) {
       setIsLogged(true);
-      const name = localStorage.getItem("userName"); 
+      const name = localStorage.getItem("userName");
       if (name) {
         setUserName(name);
       }
@@ -22,7 +22,6 @@ const Avatar = () => {
       setIsLogged(false);
     }
   }, []);
-
 
   return (
     <div>
@@ -35,12 +34,8 @@ const Avatar = () => {
           {userName.charAt(0).toUpperCase()}
         </div>
       ) : (
-        <Link to={("/login")}>
-          <OverviewButton 
-            label="Iniciar sesión"
-            icon={<LogIn className="w-5 h-5" />}
-          >
-          </OverviewButton>
+        <Link to={"/login"}>
+          <Button variant={"outline"}>Iniciar sesión</Button>
         </Link>
       )}
     </div>

@@ -18,11 +18,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="flex my-auto items-center text-center text-white flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
+    <div className="flex my-auto items-center text-center text-black flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
       <h1 className="text-[50px] font-semibold">
         Tu hogar, nuestro compromiso
       </h1>
-      <h2 className="text-[22px]">
+      <h2 className="text-[24px]">
         Busca inmuebles en venta o en alquiler en Rosario
       </h2>
       <Input
@@ -30,16 +30,25 @@ const Hero = () => {
         className="w-[80%] mt-6"
         placeholder="Casa, departamento en el centro..."
       />
-      <p className="mt-10 text-white">¿Qué estás buscando ahora?</p>
-      <div className="mt-6 flex gap-6">
+      <p className="mt-10 text-black">¿Qué estás buscando ahora?</p>
+      <div className="mt-4 flex gap-6">
         <Link to={"/buy"}>
-          <OverviewButton label="Alquilar" icon={<HomeIcon />} />
+          <OverviewButton
+            label="Alquilar"
+            icon={<HomeIcon className="w-7 h-7" />}
+          />
         </Link>
         <Link to={"/buy"}>
-          <OverviewButton label="Comprar" icon={<HotelIcon />} />
+          <OverviewButton
+            label="Comprar"
+            icon={<HotelIcon className="w-7 h-7" />}
+          />
         </Link>
         <Link to={isLogged ? "/vender" : "/vender"}>
-          <OverviewButton label="Vender" icon={<MegaHomeIcon />} />
+          <OverviewButton
+            label="Vender"
+            icon={<MegaHomeIcon className="w-7 h-7" />}
+          />
         </Link>
       </div>
     </div>
