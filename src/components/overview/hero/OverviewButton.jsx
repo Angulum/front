@@ -2,7 +2,7 @@ const OverviewButton = ({ label, icon, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="rounded-[50px] bg-[#f8ebe3] text-[#333333] flex items-center p-1"
+      className="rounded-[50px] bg-[#f8ebe3] text-black flex items-center p-1"
     >
       <div
         className="w-10 h-10 rounded-full  

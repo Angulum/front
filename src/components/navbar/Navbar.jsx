@@ -11,7 +11,6 @@ const ITEMS = [
 ];
 
 const Navbar = () => {
-  
   const [isLogged, setIsLogged] = useState(false);
 
   const hasToken = () => {

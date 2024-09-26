@@ -15,17 +15,20 @@ const Overview = () => {
   useEffect(() => {
     fetch("https://server-angulum.koyeb.app/user/get")
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => console.log(data));
   }, []);
 
   return (
     <div className="relative">
       <Navbar />
 
-      <Section className="overflow-hidden relative bg-[#F7F7F7] ">
-        <div className="grid lg:grid-cols-2 mx-auto h-full w-full sm:max-w-full">
+      <Section className="overflow-hidden relative bg-[#F7F7F7]">
+        <div className="sm:max-w-full relative">
           <Hero />
-          <img src="./hero.jpg " className="object-cover h-full w-screen" />
+          <div className="relative">
+            <img src="./hero.jpg" className="object-cover h-full w-screen" />
+            <div className="absolute inset-0 bg-black opacity-50" />
+          </div>
         </div>
       </Section>
 

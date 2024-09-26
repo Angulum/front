@@ -38,7 +38,7 @@ const Avatar = () => {
         <Link to={("/login")}>
           <OverviewButton 
             label="Iniciar sesión"
-            icon={<LogIn />}
+            icon={<LogIn className="w-5 h-5" />}
           >
           </OverviewButton>
         </Link>
