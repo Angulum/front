@@ -26,39 +26,14 @@ const Overview = () => {
 
       <Section className="overflow-hidden relative flex items-center justify-center ">
         <motion.div
-          initial={{ opacity: 0, x: -300 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.5 }}
-          className="absolute hidden md:block bottom-0 left-0 right-0 top-0 z-[1] overflow-hidden rotate-[12deg] opacity-80"
-        >
-          <img
-            src="/home/casa-1.png"
-            alt=""
-            className="absolute hidden md:block bottom-[-5%] mx-auto left-[10%] translate-x-[-50%] z-[1] opacity-80 w-[90vh] h-[70vh]"
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 300 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.5 }}
-          className="absolute hidden md:block bottom-0 left-0 right-0 top-0 z-[1] overflow-hidden rotate-[12deg] opacity-80"
-        >
-          <img
-            src="/home/casa-2.png"
-            alt=""
-            className="absolute hidden md:block bottom-[-15%] mx-auto right-[-55%] translate-x-[-50%] z-[1] opacity-80  h-[80vh]"
-          />
-        </motion.div>
-
-        <motion.div
           className="relative h-full w-full bg-white flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 3 }}
         >
           <Hero />
-          <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>{" "}
+          <img src="./hero.jpg" className="object-cover h-full w-screen" />
+          <div className="absolute inset-0 bg-black opacity-50" />
         </motion.div>
       </Section>
 

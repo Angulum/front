@@ -18,7 +18,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="flex my-auto items-center text-center text-black flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
+    <div className="flex my-auto items-center text-center text-white flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
       <h1 className="text-[50px] font-semibold">
         Tu hogar, nuestro compromiso
       </h1>
@@ -30,7 +30,7 @@ const Hero = () => {
         className="w-[80%] mt-6"
         placeholder="Casa, departamento en el centro..."
       />
-      <p className="mt-10 text-black">¿Qué estás buscando ahora?</p>
+      <p className="mt-10">¿Qué estás buscando ahora?</p>
       <div className="mt-4 flex gap-6">
         <Link to={"/buy"}>
           <OverviewButton
