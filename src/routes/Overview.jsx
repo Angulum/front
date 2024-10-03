@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 
 import Footer from "../components/Footer";
 import Navbar from "../components/navbar/Navbar";
@@ -25,16 +24,11 @@ const Overview = () => {
       <Navbar />
 
       <Section className="overflow-hidden relative flex items-center justify-center ">
-        <motion.div
-          className="relative h-full w-full bg-white flex justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 3 }}
-        >
+        <div className="relative h-full w-full bg-white flex justify-center">
           <Hero />
           <img src="./hero.jpg" className="object-cover h-full w-screen" />
           <div className="absolute inset-0 bg-black opacity-50" />
-        </motion.div>
+        </div>
       </Section>
 
       <Section className="bg-[#f8ebe3] h-fit">

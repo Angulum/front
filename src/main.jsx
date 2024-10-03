@@ -9,7 +9,9 @@ import ChangePassword from "./routes/ChangePassword";
 import Buy from "./routes/Buy";
 import Sell from "./routes/Sell";
 import { Account } from "./routes/Account";
+import { UserProvider } from "./lib/context/useUser"; // Asegúrate de importar correctamente
 
+// Configuración de rutas
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +45,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );

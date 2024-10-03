@@ -1,6 +1,6 @@
 import Logo from "../ui/Logo";
 import NavbarItem from "./NavbarItem";
-import Avatar from "../ui/Avatar";
+import Avatar from "./AvatarLogin";
 import { useEffect, useState } from "react";
 
 const ITEMS = [

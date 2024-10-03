@@ -56,7 +56,7 @@ const Buy = () => {
     <div className="relative">
       <Navbar />
 
-      <div className="mt-4">
+      <div className="mt-20">
         <Searcher />
         <div className="flex flex-col gap-4 relative bg-white">
           {/* Contenedor con ref para el scroll */}

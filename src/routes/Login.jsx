@@ -1,28 +1,31 @@
-import Form from "../components/login/Form";
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import FormLogin from "../components/login/Form";
 
 const Login = () => {
-
   const navigate = useNavigate();
 
   const handleRegisterClick = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   return (
     <div className="grid lg:grid-cols-2 justify-center items-center h-screen overflow-hidden">
       <div className=" mx-auto h-fit w-full lg:w-[60%]">
-        <h2 className="font-semibold text-[24px] text-[#333333]">Bienvenido de vuelta</h2>
+        <h2 className="font-semibold text-[24px] text-[#333333]">
+          Bienvenido de vuelta
+        </h2>
         <span className="font-family">
           ¿No tienes cuenta?{" "}
-          <button onClick={handleRegisterClick} className="font-semibold">Registrate</button>
+          <button onClick={handleRegisterClick} className="font-semibold">
+            Registrate
+          </button>
         </span>
-        <Form />
+        <FormLogin />
         <span className="font-family text-sm ml-auto w-fit">
           ¿Olvidaste tu contraseña?{" "}
-          <Link to={("/changePassword")}>
+          <Link to={"/changePassword"}>
             <button className="font-semibold">Recuperala aquí</button>
           </Link>
         </span>

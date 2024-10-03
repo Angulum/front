@@ -4,13 +4,14 @@ import { useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { Eye, EyeOff } from "lucide-react";
+import { useUser } from "../../lib/context/useUser";
 
-const Form = () => {
+const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
-  
 
+  const { login } = useUser();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -22,7 +23,7 @@ const Form = () => {
 
   const disableLogin = () => {
     if (email === "" || password === "" || password.length < 8) {
-      return true;
+      return false;
     }
     return false;
   };
@@ -34,20 +35,23 @@ const Form = () => {
   const handleButton = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/user/login", {
+    fetch(import.meta.env.VITE_BACKEND_URL + "/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        Email: "hellojavaaasd",
-        password: "pepei",
-        name: "fdfdg",
-        role: "user",
+        email: email,
+        password: password,
       }),
-    });
-  };
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const token = data.accessToken;
 
+        if (token) login(token);
+      });
+  };
 
   return (
     <form
@@ -58,10 +62,7 @@ const Form = () => {
         <label className="font-semibold text-xs" htmlFor="email">
           Email
         </label>
-        <Input
-          onChange={handleEmailChange}
-          placeholder={"johnson@gmail.com"}
-        />
+        <Input onChange={handleEmailChange} placeholder={"johnson@gmail.com"} />
       </div>
       <div className="flex flex-col gap-1">
         <label className="font-semibold text-xs" htmlFor="password">
@@ -100,4 +101,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormLogin;
