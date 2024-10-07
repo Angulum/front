@@ -2,39 +2,50 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import FormLogin from "../components/login/Form";
+import Logo from "../components/ui/Logo";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleRegisterClick = () => {
-    navigate("/register");
-  };
-
   return (
-    <div className="grid lg:grid-cols-2 justify-center items-center h-screen overflow-hidden">
-      <div className=" mx-auto h-fit w-full lg:w-[60%]">
-        <h2 className="font-semibold text-[24px] text-[#333333]">
-          Bienvenido de vuelta
-        </h2>
-        <span className="font-family">
-          ¿No tienes cuenta?{" "}
-          <button onClick={handleRegisterClick} className="font-semibold">
-            Registrate
-          </button>
-        </span>
+    <div className="grid lg:grid-cols-2 h-screen">
+      <Logo className="absolute top-4 left-4" />
+      <div className="flex flex-col justify-center px-8 lg:px-20 w-full lg:w-3/5 mx-auto">
+        <div>
+          <h2 className="font-semibold text-xl text-[#333333]">
+            Bienvenido de vuelta
+          </h2>
+          <p className="font-family text-sm">
+            ¿No tienes cuenta?{" "}
+            <button
+              onClick={() => navigate("/register")}
+              className="font-semibold text-black hover:underline"
+            >
+              Regístrate
+            </button>
+          </p>
+        </div>
+
         <FormLogin />
-        <span className="font-family text-sm ml-auto w-fit">
+        <p className="mt-4 text-sm">
           ¿Olvidaste tu contraseña?{" "}
-          <Link to={"/changePassword"}>
-            <button className="font-semibold">Recuperala aquí</button>
+          <Link
+            to="/changePassword"
+            className="font-semibold text-black hover:underline"
+          >
+            Recupérala aquí
           </Link>
-        </span>
+        </p>
       </div>
-      <img
-        className="hidden w-full h-full object-fill lg:flex"
-        src="https://images.pexels.com/photos/290275/pexels-photo-290275.jpeg?cs=srgb&dl=pexels-pixabay-290275.jpg&fm=jpg"
-        alt=""
-      />
+      <div className="relative">
+        <div className="absolute inset-0 bg-black opacity-50" />
+
+        <img
+          className="hidden w-full h-full object-fill lg:flex"
+          src="https://images.pexels.com/photos/290275/pexels-photo-290275.jpeg?cs=srgb&dl=pexels-pixabay-290275.jpg&fm=jpg"
+          alt=""
+        />
+      </div>
     </div>
   );
 };
