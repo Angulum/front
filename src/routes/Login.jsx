@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid lg:grid-cols-2 h-screen">
+    <div className="grid lg:grid-cols-2 h-screen overflow-hidden">
       <Logo className="absolute top-4 left-4" />
       <div className="flex flex-col justify-center px-8 lg:px-20 w-full lg:w-3/5 mx-auto">
         <div>

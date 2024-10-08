@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 
 import Button from "../ui/Button";
 import { useUser } from "../../lib/context/useUser";
+import Skeleton from "../ui/Skeleton";
 
 const Avatar = () => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
+
+  if (loading) return <Skeleton className="w-10 h-10 rounded-full" />;
 
   return (
     <div>

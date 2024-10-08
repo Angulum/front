@@ -1,13 +1,11 @@
 import { useState } from "react";
-import {
-  ChevronLeftIcon,
-  LogOutIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, LogOutIcon } from "lucide-react";
 import { AccountGeneral } from "../components/account/General";
 import { AccountEstates } from "../components/account/Estates";
 import { AccountSecurity } from "../components/account/Security";
 import { cn } from "../lib/utils";
 import { Link } from "react-router-dom";
+import { useUser } from "../lib/context/useUser";
 
 export const Account = () => {
   const [activeTab, setActiveTab] = useState("general");
@@ -15,6 +13,8 @@ export const Account = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+
+  const { logout } = useUser();
 
   return (
     <main className="max-w-full w-full overflow-hidden h-full max-h-screen flex">
@@ -73,7 +73,10 @@ export const Account = () => {
         </div>
 
         <div className="p-7">
-          <button className="px-7 py-2 font-semibold bg-red-500 rounded-md text-whit flex items-center text-white justify-center gap-2 w-full">
+          <button
+            onClick={logout}
+            className="px-7 py-2 font-semibold bg-red-500 rounded-md text-whit flex items-center text-white justify-center gap-2 w-full"
+          >
             <LogOutIcon className="w-5 h-5" />
             <span>Cerrar sesión</span>
           </button>
@@ -81,13 +84,13 @@ export const Account = () => {
       </div>
 
       <div className="overflow-y-scroll relative w-full">
-          <div className="sticky top-0 bg-white z-30 w-full border-b border-black/10 h-20 flex items-center px-10"></div>
+        <div className="sticky top-0 bg-white z-30 w-full border-b border-black/10 h-20 flex items-center px-10"></div>
 
-          <div className="sticky p-12">
-            {activeTab === "general" && <AccountGeneral />}
-            {activeTab === "estates" && <AccountEstates />}
-            {activeTab === "security" && <AccountSecurity />}
-          </div>
+        <div className="sticky p-12">
+          {activeTab === "general" && <AccountGeneral />}
+          {activeTab === "estates" && <AccountEstates />}
+          {activeTab === "security" && <AccountSecurity />}
+        </div>
       </div>
     </main>
   );

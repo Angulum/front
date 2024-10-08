@@ -10,8 +10,11 @@ export const UserProvider = ({ children }) => {
   });
 
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+
     const fetchUser = async () => {
       if (token) {
         try {
@@ -31,17 +34,19 @@ export const UserProvider = ({ children }) => {
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
+
           setUser(null);
         }
       }
     };
 
-    fetchUser();
+    fetchUser().finally(() => setLoading(false));
   }, [token]);
 
   const login = (newToken) => {
     setToken(newToken);
     localStorage.setItem("token", newToken);
+    window.location.href = "/";
   };
 
   const logout = () => {
@@ -52,7 +57,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ token, user, login, logout }}>
+    <UserContext.Provider value={{ token, user, login, logout, loading }}>
       {children}
     </UserContext.Provider>
   );

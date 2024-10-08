@@ -4,9 +4,9 @@ import Logo from "../components/ui/Logo";
 
 const ChangePassword = () => {
   return (
-    <div className="flex h-screen relative">
+    <div className="flex h-screen relative overflow-hidden">
       <Logo className="absolute top-4 left-4" />
-      
+
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6">
         <div className="max-w-md w-full space-y-8">
           <div>
