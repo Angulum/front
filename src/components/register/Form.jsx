@@ -103,30 +103,38 @@ const Form = () => {
   };
 
   return (
-    <form className="flex flex-col gap-2 mt-4" onSubmit={handleButton}>
+    <form className="flex flex-col gap-2 space-y-2 text-sm" onSubmit={handleButton}>
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="name">
+        <label className="font-semibold " htmlFor="name">
           Nombre y apellido
         </label>
-        <Input onChange={handleNameChange} placeholder={"Peter Jhonson"} value={name} />
+        <Input
+          onChange={handleNameChange}
+          placeholder={"Peter Jhonson"}
+          value={name}
+        />
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="email">
+        <label className="font-semibold " htmlFor="email">
           Email
         </label>
-        <Input onChange={handleEmailChange} placeholder={"jhonshonpeter@gmail.com"} value={email} />
+        <Input
+          onChange={handleEmailChange}
+          placeholder={"jhonshonpeter@gmail.com"}
+          value={email}
+        />
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="phone">
+        <label className="font-semibold " htmlFor="phone">
           Télefono
         </label>
         <Input onChange={handlePhoneChange} placeholder={"3417654321"} value={phoneNumber} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="font-semibold text-xs" htmlFor="password">
+        <label className="font-semibold " htmlFor="password">
           Contraseña
         </label>
         <div className="relative w-full">
@@ -166,10 +174,15 @@ const Form = () => {
       >
         Registrate
       </Button>
-      <span className="text-sm whitespace-nowrap items-center">
+      <span className="whitespace-nowrap items-center">
         Al registrarte, aceptas nuestras{" "}
-        <span className="mr-1 font-semibold">Condiciones de uso</span> y
-        <span className="ml-1 font-semibold">Política de privacidad.</span>
+        <button className="font-semibold text-black hover:underline">
+          Condiciones de uso
+        </button>{" "}
+        y
+        <button className="font-semibold text-black hover:underline ml-1">
+          Política de privacidad.
+        </button>
       </span>
     </form>
   );

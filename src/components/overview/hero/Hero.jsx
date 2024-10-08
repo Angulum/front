@@ -1,22 +1,15 @@
+import { Link } from "react-router-dom";
+import { useUser } from "../../../lib/context/useUser";
+
 import HomeIcon from "../../icons/HomeIcon";
 import OverviewButton from "./OverviewButton";
 import HotelIcon from "../../icons/HotelIcon";
 import MegaHomeIcon from "../../icons/MegaHomeIcon";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Input from "../../ui/Input";
 
 const Hero = () => {
-  const [isLogged, setIsLogged] = useState(false);
-
-  const hasToken = () => {
-    return localStorage.getItem("token") !== null;
-  };
-
-  useEffect(() => {
-    setIsLogged(hasToken());
-  }, []);
-
+  const { user } = useUser();
+  
   return (
     <div className="flex my-auto items-center text-center text-white flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
       <h1 className="text-[50px] font-semibold">
@@ -44,7 +37,7 @@ const Hero = () => {
             icon={<HotelIcon className="w-7 h-7" />}
           />
         </Link>
-        <Link to={isLogged ? "/vender" : "/vender"}>
+        <Link to={user ? "/vender" : "/vender"}>
           <OverviewButton
             label="Vender"
             icon={<MegaHomeIcon className="w-7 h-7" />}

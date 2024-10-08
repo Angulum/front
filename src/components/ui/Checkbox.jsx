@@ -1,6 +1,6 @@
 export const Checkbox = ({ label, checked, onChange }) => {
   return (
-    <div className="text-xs flex items-center gap-2">
+    <div className="flex items-center gap-2">
       <input
         type="checkbox"
         checked={checked}
