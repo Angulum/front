@@ -4,17 +4,19 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { Checkbox } from "../ui/Checkbox";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useUser } from "../../lib/context/useUser";
+
 
 const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhone] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
 
 
-  const navigate = useNavigate();
+  const { login } = useUser();
+
 
   const [passwordCheck, setPasswordCheck] = useState({
     length: false,
@@ -32,7 +34,7 @@ const Form = () => {
       email &&
       password &&
       name &&
-      phone
+      phoneNumber
     );
   };
 
@@ -51,30 +53,29 @@ const Form = () => {
   };
 
 
-  const handleButton = async (e) => {
+  const handleButton = (e) => {
     e.preventDefault();
 
     const user = {
       email,
       password,
       name,
+      phoneNumber
     };
 
     try {
-      const response = await fetch("https://server-angulum.koyeb.app/user/register", {
+      fetch(import.meta.env.VITE_BACKEND_URL +"/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        const token = data.accessToken;
+        if (token) login(token);
       });
-
-      if (response.ok) {
-        console.log("User registered successfully");
-        navigate("/login");
-      } else {
-        console.error("Registration failed");
-      }
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -121,7 +122,7 @@ const Form = () => {
         <label className="font-semibold text-xs" htmlFor="phone">
           Télefono
         </label>
-        <Input onChange={handlePhoneChange} placeholder={"3417654321"} value={phone} />
+        <Input onChange={handlePhoneChange} placeholder={"3417654321"} value={phoneNumber} />
       </div>
 
       <div className="flex flex-col gap-1">
