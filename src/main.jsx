@@ -11,6 +11,10 @@ import Sell from "./routes/Sell";
 import OverviewEstates from "./routes/OverviewEstates";
 import { Account } from "./routes/Account";
 import { UserProvider } from "./lib/context/useUser"; // Asegúrate de importar correctamente
+import AdminLogin from "./components/admin/Login";
+import AdminWrapper from "./components/admin/Wrapper";
+import Services from "./components/admin/Services";
+import Status from "./components/admin/Status";
 
 // Configuración de rutas
 const router = createBrowserRouter([
@@ -41,6 +45,26 @@ const router = createBrowserRouter([
   {
     path: "/account",
     element: <Account />,
+  },
+  {
+    path: "/admin",
+    element: <AdminLogin />,
+  },
+  {
+    path: "/admin/services",
+    element: (
+      <AdminWrapper>
+        <Services />
+      </AdminWrapper>
+    ),
+  },
+  {
+    path: "/admin/status",
+    element: (
+      <AdminWrapper>
+        <Status />
+      </AdminWrapper>
+    ),
   },
   {
     path: "/buy/:id",
