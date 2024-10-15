@@ -8,6 +8,7 @@ import Register from "./routes/Register";
 import ChangePassword from "./routes/ChangePassword";
 import Buy from "./routes/Buy";
 import Sell from "./routes/Sell";
+import OverviewEstates from "./routes/OverviewEstates";
 import { Account } from "./routes/Account";
 import { UserProvider } from "./lib/context/useUser"; // Asegúrate de importar correctamente
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/account",
     element: <Account />,
+  },
+  {
+    path: "/buy/:id",
+    element: <OverviewEstates />,
   },
 ]);
 

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import Navbar from "../components/navbar/Navbar";
 import CardGrid from "../components/estates/CardPublications/CardGrid";
 import Footer from "../components/Footer";
@@ -8,6 +8,7 @@ import Searcher from "../components/estates/CardPublications/Searcher";
 // Crear un array de 20 propiedades simuladas
 const generateProperties = () => {
   return Array.from({ length: 20 }, (_, index) => ({
+    id: index + 1, // Asegúrate de tener un id único
     title: `Casa ${index + 1}`,
     location: `Ubicación ${index + 1}`,
     rooms: Math.floor(Math.random() * 5) + 1,
@@ -27,6 +28,7 @@ const generateProperties = () => {
 };
 
 const Buy = () => {
+  const navigate = useNavigate(); // Hook para la navegación
   const properties = generateProperties();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -52,6 +54,11 @@ const Buy = () => {
     }
   };
 
+  // Callback para manejar el clic en una tarjeta y navegar a la ruta con el id
+  const handleCardClick = (propertyId) => {
+    navigate(`/sell/${propertyId}`); // Navega a la página de detalles de la propiedad
+  };
+
   return (
     <div className="relative">
       <Navbar />
@@ -61,14 +68,15 @@ const Buy = () => {
         <div className="flex flex-col gap-4 relative bg-white">
           {/* Contenedor con ref para el scroll */}
           <div ref={containerRef}>
-            <CardGrid cards={currentProperties} />
+            {/* Pasa el callback para manejar el clic en una tarjeta */}
+            <CardGrid cards={currentProperties} onCardClick={handleCardClick} />
           </div>
           {/* Paginación */}
           <div className="flex justify-center gap-2 mt-4">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index + 1}
-                className={`px-4 py-2 rounded ${
+                className={`px-4 py-2 rounded mb-8 ${
                   currentPage === index + 1
                     ? "bg-blue-500 text-white"
                     : "bg-gray-300 text-black"

@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Heart } from "lucide-react";
 import Tag from "../../ui/Tag";
 import { cn } from "../../../lib/utils";
 
 const Card = ({ property }) => {
+  const navigate = useNavigate();
   const [favorite, setFavorite] = useState(false);
   const [setColorChecked] = useState("fill-red-500");
 
@@ -12,8 +14,12 @@ const Card = ({ property }) => {
     setColorChecked(favorite ? "" : "");
   };
 
+  const handleCardClick = () => {
+    navigate(`/buy/${property.id}`);
+  };
+
   return (
-    <div className=" bg-white shadow-lg rounded-lg overflow-hidden flex">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex" onClick={handleCardClick}>
       <div className="w-[30%] relative">
         <img
           className="w-full h-full object-cover"
