@@ -33,13 +33,12 @@ const Services = () => {
         },
         body: JSON.stringify({ service, value }),
       });
+
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Hubo un problema actualizando el servicio");
       }
-      const data = await response.json();
-      console.log("Service updated:", data);
     } catch (error) {
-      console.error("Error updating service:", error);
+      console.error("Error actualizando el servicio:", error);
     }
   };
 
@@ -70,7 +69,9 @@ const Services = () => {
           <Switch
             color="blue"
             checked={shoppingIntegration}
-            onChange={(e) => handleSwitchChange("shoppingIntegration", e.target.checked)}
+            onChange={(e) =>
+              handleSwitchChange("shoppingIntegration", e.target.checked)
+            }
           />
         </div>
 
@@ -79,7 +80,9 @@ const Services = () => {
           <Switch
             color="blue"
             checked={dataScraping}
-            onChange={(e) => handleSwitchChange("dataScraping", e.target.checked)}
+            onChange={(e) =>
+              handleSwitchChange("dataScraping", e.target.checked)
+            }
           />
         </div>
 
@@ -88,7 +91,9 @@ const Services = () => {
           <Switch
             color="blue"
             checked={userRegistration}
-            onChange={(e) => handleSwitchChange("userRegistration", e.target.checked)}
+            onChange={(e) =>
+              handleSwitchChange("userRegistration", e.target.checked)
+            }
           />
         </div>
       </div>

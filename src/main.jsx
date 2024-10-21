@@ -15,6 +15,7 @@ import AdminLogin from "./components/admin/Login";
 import AdminWrapper from "./components/admin/Wrapper";
 import Services from "./components/admin/Services";
 import Status from "./components/admin/Status";
+import Reports from "./components/admin/Reports";
 
 // Configuración de rutas
 const router = createBrowserRouter([
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
     element: (
       <AdminWrapper>
         <Status />
+      </AdminWrapper>
+    ),
+  },
+  {
+    path: "/admin/reports",
+    element: (
+      <AdminWrapper>
+        <Reports />
       </AdminWrapper>
     ),
   },
