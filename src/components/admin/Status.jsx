@@ -1,3 +1,4 @@
+import { Spinner } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 
 const Status = () => {
@@ -58,29 +59,34 @@ const Status = () => {
       <p className="mt-2 text-[#575757]">
         Observa en tiempo real si hay algún problema activo.
       </p>
-
-      {!loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          <StatusCard
-            title="Servicio web"
-            url={import.meta.env.VITE_FRONTEND_URL}
-            status={statuses.web.status}
-            lastUpdate={statuses.web.lastUpdate.toLocaleTimeString()}
-          />
-          <StatusCard
-            title="API"
-            url={import.meta.env.VITE_BACKEND_URL}
-            status={statuses.api.status}
-            lastUpdate={statuses.api.lastUpdate.toLocaleTimeString()}
-          />
-          <StatusCard
-            title="Base de datos"
-            url={import.meta.env.VITE_DATABASE_URL}
-            status={statuses.db.status}
-            lastUpdate={statuses.db.lastUpdate.toLocaleTimeString()}
-          />
-        </div>
-      )}
+      <div className="mt-8">
+        {loading ? (
+          <div className="w-full flex justify-center items-center">
+            <Spinner color="blue" size="large" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <StatusCard
+              title="Servicio web"
+              url={import.meta.env.VITE_FRONTEND_URL}
+              status={statuses.web.status}
+              lastUpdate={statuses.web.lastUpdate.toLocaleTimeString()}
+            />
+            <StatusCard
+              title="API"
+              url={import.meta.env.VITE_BACKEND_URL}
+              status={statuses.api.status}
+              lastUpdate={statuses.api.lastUpdate.toLocaleTimeString()}
+            />
+            <StatusCard
+              title="Base de datos"
+              url={import.meta.env.VITE_DATABASE_URL}
+              status={statuses.db.status}
+              lastUpdate={statuses.db.lastUpdate.toLocaleTimeString()}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

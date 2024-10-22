@@ -1,3 +1,4 @@
+import { Spinner } from "@material-tailwind/react";
 import { XYChart, BarSeries, Axis, Grid } from "@visx/xychart";
 import { useEffect, useState } from "react";
 
@@ -52,8 +53,6 @@ const Reports = () => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Cargando datos...</p>;
-
   return (
     <div className="flex p-12 max-w-3xl flex-col">
       <h2 className="font-bold text-2xl">Reportes</h2>
@@ -62,23 +61,28 @@ const Reports = () => {
         según tus necesidades específicas. Descargalas para darles el uso que
         quieras.
       </p>
-
-      <XYChart
-        height={400}
-        width={600}
-        xScale={{ type: "band" }}
-        yScale={{ type: "linear" }}
-      >
-        <Grid columns={false} numTicks={4} />
-        <BarSeries
-          dataKey="Estadísticas"
-          data={data}
-          {...accessors}
-          colorAccessor={colorAccessor}
-        />
-        <Axis orientation="bottom" />
-        <Axis orientation="left" />
-      </XYChart>
+      <div className="mt-4">
+        {loading ? (
+          <Spinner color="blue" size="large" />
+        ) : (
+          <XYChart
+            height={400}
+            width={600}
+            xScale={{ type: "band" }}
+            yScale={{ type: "linear" }}
+          >
+            <Grid columns={false} numTicks={4} />
+            <BarSeries
+              dataKey="Estadísticas"
+              data={data}
+              {...accessors}
+              colorAccessor={colorAccessor}
+            />
+            <Axis orientation="bottom" />
+            <Axis orientation="left" />
+          </XYChart>
+        )}
+      </div>
     </div>
   );
 };

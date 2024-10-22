@@ -16,6 +16,7 @@ import AdminWrapper from "./components/admin/Wrapper";
 import Services from "./components/admin/Services";
 import Status from "./components/admin/Status";
 import Reports from "./components/admin/Reports";
+import Logs from "./components/admin/Logs";
 
 // Configuración de rutas
 const router = createBrowserRouter([
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
     element: (
       <AdminWrapper>
         <Reports />
+      </AdminWrapper>
+    ),
+  },
+  {
+    path: "/admin/logs",
+    element: (
+      <AdminWrapper>
+        <Logs />
       </AdminWrapper>
     ),
   },

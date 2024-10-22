@@ -25,11 +25,6 @@ const Footer = ({ inverted }) => {
                 <Link to={("/buy")}>
                   Publicaciones
                 </Link>
-              <li>
-                <Link to={("/contact")}>
-                  Contacto
-                </Link>
-              </li>
             </ul>
           </div>
 

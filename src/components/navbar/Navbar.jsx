@@ -7,7 +7,6 @@ const ITEMS = [
   { title: "Inicio", link: "/" },
   { title: "Comprar", link: "/buy" },
   { title: "Vender", link: "/vender" },
-  { title: "Contacto", link: "/contacto" },
 ];
 
 const Navbar = () => {

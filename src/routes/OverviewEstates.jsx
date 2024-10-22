@@ -23,29 +23,29 @@ const OverviewEstates = () => {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto p-4 mt-20">
+      <div className="max-w-[80%] mx-auto py-4 mt-20">
         <div className="flex flex-row justify-between">
           <h1 className="font-bold text-xl">Detalles de la Propiedad {id}</h1>
           <button onClick={handleFavoriteClick}>
-              <Heart
-                className={cn("", {
-                  "fill-red-500 text-red-500": favorite,
-                })}
-              />
-            </button>
+            <Heart
+              className={cn("", {
+                "fill-red-500 text-red-500": favorite,
+              })}
+            />
+          </button>
         </div>
-        <div className="mt-8"> 
+        <div className="mt-8">
           <Gallery />
         </div>
-        <div className="container  mx-auto p-4">
+        <div className="mx-auto py-4 my-12">
           <div className="grid grid-cols-1 w-full md:grid-cols-3 gap-8   ">
-            <Characteristics/>
-            <Description/>
-            <Contact/>
+            <Characteristics />
+            <Description />
+            <Contact />
           </div>
         </div>
         <div className="mt-2 mb-2">
-          <Map/>
+          <Map />
         </div>
       </div>
     </>

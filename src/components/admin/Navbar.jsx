@@ -28,6 +28,10 @@ const AdminNavbar = () => {
         >
           Reportes
         </li>
+
+        <li onClick={() => navigate("/admin/logs")} className="cursor-pointer">
+          Logs
+        </li>
       </ul>
     </nav>
   );

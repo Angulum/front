@@ -73,7 +73,7 @@ const Gallery = () => {
             key={index}
             onClick={() => setActiveIndex(index)}
             src={imgelink}
-            className={`h-16 w-16 cursor-pointer rounded-lg object-cover object-center transition-transform duration-300 hover:scale-110 ${
+            className={`h-[100px] w-[100px] cursor-pointer rounded-lg object-cover object-center transition-transform duration-300 hover:scale-110 ${
               activeIndex === index ? "ring-2 ring-blue-500" : ""
             }`}
             alt={`Miniatura ${index + 1}`}
