@@ -9,7 +9,8 @@ const Card = ({ property }) => {
   const [favorite, setFavorite] = useState(false);
   const [setColorChecked] = useState("fill-red-500");
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (event) => {
+    event.stopPropagation();
     setFavorite((value) => !value);
     setColorChecked(favorite ? "" : "");
   };
@@ -33,7 +34,7 @@ const Card = ({ property }) => {
           <div className="flex items-center space-x-2">
             <Tag text={"Destacado"} type={"outstanding"} />
             <Tag text={"En venta"} type={"sale"} />
-            <button onClick={handleFavoriteClick}>
+            <button className="z-50" onClick={handleFavoriteClick}>
               <Heart
                 className={cn("", {
                   "fill-red-500 text-red-500": favorite,
