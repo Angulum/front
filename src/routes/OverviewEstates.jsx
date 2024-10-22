@@ -3,6 +3,7 @@ import Characteristics from "../components/estates/estatesOverview/Characteristi
 import Contact from "../components/estates/estatesOverview/Contact";
 import Description from "../components/estates/estatesOverview/Description";
 import Gallery from "../components/estates/estatesOverview/Gallery";
+import Map from "../components/estates/estatesOverview/Map";
 import { Heart } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useParams } from "react-router-dom";
@@ -36,12 +37,15 @@ const OverviewEstates = () => {
         <div className="mt-8"> 
           <Gallery />
         </div>
-        <div className="container mx-auto p-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8   ">
+        <div className="container  mx-auto p-4">
+          <div className="grid grid-cols-1 w-full md:grid-cols-3 gap-8   ">
             <Characteristics/>
             <Description/>
             <Contact/>
           </div>
+        </div>
+        <div className="mt-2 mb-2">
+          <Map/>
         </div>
       </div>
     </>
