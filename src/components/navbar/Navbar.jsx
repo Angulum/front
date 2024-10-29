@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 
 const ITEMS = [
   { title: "Inicio", link: "/" },
-  { title: "Comprar", link: "/buy" },
-  { title: "Vender", link: "/vender" },
+  { title: "Propiedades", link: "/buy" },
 ];
 
 const Navbar = () => {
@@ -34,7 +33,7 @@ const Navbar = () => {
             let link = item.link;
 
             if (item.title === "Vender") {
-              link = isLogged ? "/vender" : "/login";
+              link = isLogged && isLogged ? "/vender" : "/login";
             }
 
             return (

@@ -48,6 +48,10 @@ export const UserProvider = ({ children }) => {
     localStorage.setItem("token", newToken);
     window.location.href = "/";
   };
+  
+  const role = () => {
+    return user?.role;
+  }
 
   const logout = () => {
     setToken(null);
@@ -57,7 +61,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ token, user, login, logout, loading }}>
+    <UserContext.Provider value={{ token, user, login, role, logout, loading }}>
       {children}
     </UserContext.Provider>
   );
