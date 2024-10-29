@@ -64,7 +64,7 @@ const Reports = () => {
       <div className="mt-4">
         {loading ? (
           <Spinner color="blue" size="large" />
-        ) : (
+        ) : data.length > 0 ? (
           <XYChart
             height={400}
             width={600}
@@ -81,6 +81,8 @@ const Reports = () => {
             <Axis orientation="bottom" />
             <Axis orientation="left" />
           </XYChart>
+        ) : (
+          <p>No hay datos disponibles.</p>
         )}
       </div>
     </div>
