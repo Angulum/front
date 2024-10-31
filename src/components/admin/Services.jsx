@@ -92,7 +92,7 @@ const Services = () => {
         </div>
 
         <div className="flex justify-between w-full items-center mb-4">
-          <p>Front-end</p>
+          <p>Registro de usuarios</p>
           <Switch
             color="blue"
             checked={register}

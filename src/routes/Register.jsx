@@ -1,8 +1,18 @@
 import Form from "../components/register/Form";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/ui/Logo";
+import { useEffect, useState } from "react";
 
 const Register = () => {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/services`)
+      .then((response) => response.json())
+      .then((data) => {
+        setIsActive(data.register);
+      });
+  }, []);
   const navigate = useNavigate();
 
   return (
@@ -25,7 +35,7 @@ const Register = () => {
         </div>
 
         <div className="mt-6">
-          <Form />
+          <Form isActive={isActive} />
         </div>
       </div>
       <div className="relative">

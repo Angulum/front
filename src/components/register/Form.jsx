@@ -6,17 +6,14 @@ import { Checkbox } from "../ui/Checkbox";
 import { Eye, EyeOff } from "lucide-react";
 import { useUser } from "../../lib/context/useUser";
 
-
-const Form = () => {
+const Form = ({ isActive }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhone] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
 
-
   const { login } = useUser();
-
 
   const [passwordCheck, setPasswordCheck] = useState({
     length: false,
@@ -27,6 +24,7 @@ const Form = () => {
 
   const enableButton = () => {
     return (
+      isActive &&
       passwordCheck.length &&
       passwordCheck.upperCase &&
       passwordCheck.lowerCase &&
@@ -52,7 +50,6 @@ const Form = () => {
     });
   };
 
-
   const handleButton = (e) => {
     e.preventDefault();
 
@@ -60,22 +57,22 @@ const Form = () => {
       email,
       password,
       name,
-      phoneNumber
+      phoneNumber,
     };
 
     try {
-      fetch(import.meta.env.VITE_BACKEND_URL +"/auth/signup", {
+      fetch(import.meta.env.VITE_BACKEND_URL + "/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        const token = data.accessToken;
-        if (token) login(token);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          const token = data.accessToken;
+          if (token) login(token);
+        });
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -103,7 +100,10 @@ const Form = () => {
   };
 
   return (
-    <form className="flex flex-col gap-2 space-y-2 text-sm" onSubmit={handleButton}>
+    <form
+      className="flex flex-col gap-2 space-y-2 text-sm"
+      onSubmit={handleButton}
+    >
       <div className="flex flex-col gap-1">
         <label className="font-semibold " htmlFor="name">
           Nombre y apellido
@@ -130,7 +130,11 @@ const Form = () => {
         <label className="font-semibold " htmlFor="phone">
           Télefono
         </label>
-        <Input onChange={handlePhoneChange} placeholder={"3417654321"} value={phoneNumber} />
+        <Input
+          onChange={handlePhoneChange}
+          placeholder={"3417654321"}
+          value={phoneNumber}
+        />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -174,6 +178,11 @@ const Form = () => {
       >
         Registrate
       </Button>
+      {!isActive && (
+        <span className="text-red-500 text-sm">
+          El registro está actualmente deshabilitado
+        </span>
+      )}
       <span className="whitespace-nowrap items-center">
         Al registrarte, aceptas nuestras{" "}
         <button className="font-semibold text-black hover:underline">
