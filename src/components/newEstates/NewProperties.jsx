@@ -1,28 +1,31 @@
 import { useState } from "react";
 import Atribute from "./steps/Atribute";
 import Docs from "./steps/Docs";
-import Publicity from "./steps/Publicity";
 import Temes from "./steps/Terms";
+import { useUser } from "../../lib/context/useUser";
 
 const NewProperties = () => {
-  const [step, setStep] = useState(1); // Estado para controlar el paso
+
+  const { token } = useUser();
+  const [step, setStep] = useState(1); 
   const [formData, setFormData] = useState({
-    calle: '',
-    provincia: '',
-    codigoPostal: '',
-    precioMensual: '',
-    expensas: '',
-    tipoPropiedad: '',
-    banos: '',
-    habitaciones: '',
-    ambientes: '',
-    metrosCubicos: '',
-    descripcion: '',
-    imagenes: [],
-    documentos: [],
-    termsAccepted: false,
-    mejora: '',
+    name: '',
+    location: '',
+    price: '',
+    expenses: '',
+    tags: [],
+    type: '',
+    contract: '',
+    description: '',
+    ambients: '',
+    rooms: '',
+    bathrooms: '',
+    squareFeet: '',
+    parking: '',
+    antiquity: '',
+    ownerId: 1,
   });
+  
 
   // Función para manejar los cambios en el formulario
   const handleChange = (e) => {
@@ -73,9 +76,23 @@ const NewProperties = () => {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try{
+      console.log("Creando propiedad:", formData);
+    const response = await fetch("http://localhost:8080/real-estate/create",{
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: {
+        ...formData,
+      }
+    });
+    console.log("Propiedad creada:", response.data);
+  } catch (error) {
+    console.error("Error al crear la propiedad:", error);
+  }
   };
 
   const handleTermsChange = (e) => {
@@ -109,14 +126,6 @@ const NewProperties = () => {
           />
         )}
         {step === 3 && (
-          <Publicity
-            nextStep={nextStep}
-            prevStep={prevStep}
-            formData={formData}
-            handleChange={handleChange}
-          />
-        )}
-        {step === 4 && (
           <Temes
             prevStep={prevStep}
             handleSubmit={handleSubmit}

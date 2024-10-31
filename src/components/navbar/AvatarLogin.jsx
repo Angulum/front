@@ -27,7 +27,7 @@ const Avatar = () => {
               Agregar propiedad
             </Button>
           )}
-          {user.role === "user" && (
+          {user.role === "user" || user.role === null && (
             <Button variant="secondary" onClick={() => handleNavigation("/account")}>
               Mi cuenta
             </Button>

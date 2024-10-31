@@ -6,7 +6,7 @@ import Maintenance from "./Maintenance";
 
 const RootComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
 
   useEffect(() => {
     const checkFrontendStatus = async () => {

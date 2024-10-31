@@ -54,39 +54,34 @@ const Atribute = ({ nextStep, formData, handleChange }) => (
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Etiquetas</label>
-        <input
-          type="text"
-          name="tags"
-          value={formData.tags}
-          onChange={handleChange}
-          className="w-full mt-1 p-2 border rounded-md"
-          placeholder="Ej. moderno, luminoso"
-        />
-      </div>
-
-      <div>
         <label className="block text-sm font-medium">Tipo de Propiedad</label>
-        <input
-          type="text"
+        <select
           name="type"
           value={formData.type}
           onChange={handleChange}
-          className="w-full mt-1 p-2 border rounded-md"
-          placeholder="Ej. departamento, casa"
-        />
+          className="w-full mt-1 p-2 border rounded-md bg-white"
+        >
+          <option value="" disabled>Selecciona una opción</option>
+          <option value="departamento">Departamento</option>
+          <option value="casa">Casa</option>
+          <option value="ph">PH</option>
+        </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Tipo de Contrato</label>
-        <input
+      <label className="block text-sm font-medium">Tipo de Contrato</label>
+        <select
           type="text"
           name="contract"
           value={formData.contract}
           onChange={handleChange}
           className="w-full mt-1 p-2 border rounded-md"
           placeholder="Ej. alquiler, venta"
-        />
+        >
+          <option value="" disabled>Selecciona una opción</option>
+          <option value="venta">Venta</option>
+          <option value="alquiler">Alquiler</option>
+        </select>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
