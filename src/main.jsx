@@ -17,6 +17,7 @@ import Status from "./components/admin/Status";
 import Reports from "./components/admin/Reports";
 import Logs from "./components/admin/Logs";
 import RootComponent from "./RootComponent";
+import Users from "./components/admin/Users";
 
 // Configuración de rutas
 export const router = createBrowserRouter([
@@ -57,6 +58,14 @@ export const router = createBrowserRouter([
     element: (
       <AdminWrapper>
         <Services />
+      </AdminWrapper>
+    ),
+  },
+  {
+    path: "/admin/users",
+    element: (
+      <AdminWrapper>
+        <Users />
       </AdminWrapper>
     ),
   },

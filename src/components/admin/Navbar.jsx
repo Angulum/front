@@ -8,6 +8,10 @@ const AdminNavbar = () => {
     <nav className="w-full bg-white border-b border-black/30 items-center p-4 flex">
       <Logo />
       <ul className="flex gap-12 ml-12">
+        <li onClick={() => navigate("/admin/users")} className="cursor-pointer">
+          Usuarios
+        </li>
+
         <li
           onClick={() => navigate("/admin/status")}
           className="cursor-pointer"

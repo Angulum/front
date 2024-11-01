@@ -1,0 +1,202 @@
+import { useState, useEffect } from "react";
+import Modal from "../ui/Modal";
+import { Button, Spinner } from "@material-tailwind/react";
+
+const Users = () => {
+  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [editForm, setEditForm] = useState({
+    name: "",
+    email: "",
+    role: "",
+  });
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/user/get`,
+          {
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTczMDQ5MDc1NSwiZXhwIjoxNzMwNDk0MzU1fQ.KjYkOxhte-i9_58jlQMh5MiLiu3PqXPLDLZYk239lDc",
+            },
+          }
+        );
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleEdit = (user) => {
+    setSelectedUser(user);
+    setEditForm({ name: user.name, email: user.email, role: user.role });
+    setIsEditModalOpen(true);
+  };
+
+  const handleDelete = (user) => {
+    setSelectedUser(user);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+    setIsEditModalOpen(false);
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleEditChange = (e) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  };
+
+  const saveEdit = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/edit/${selectedUser.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTczMDQ5MDc1NSwiZXhwIjoxNzMwNDk0MzU1fQ.KjYkOxhte-i9_58jlQMh5MiLiu3PqXPLDLZYk239lDc",
+          },
+
+          body: JSON.stringify(editForm),
+        }
+      );
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        setUsers(
+          //find user and change with the edit form data
+            users.map((user) =>
+                user.id === updatedUser.id ? editForm : user
+            )
+        );
+        closeModal();
+      } else {
+        console.error("Error updating user");
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/delete/${selectedUser.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        setUsers(users.filter((user) => user.id !== selectedUser.id));
+        closeModal();
+      } else {
+        console.error("Error deleting user");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
+  return (
+    <div className="container mx-auto max-w-4xl mt-12">
+      <h2 className="font-bold text-2xl">Usuarios</h2>
+      <p className="mt-2 text-[#575757]">
+        Aquí puedes ver y administrar los usuarios de la plataforma.
+      </p>
+      <div className="mt-8">
+        {loading ? (
+          <div className="w-full flex justify-center items-center">
+            <Spinner color="blue" size="large" />
+          </div>
+        ) : (
+          <table className="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th className="py-2">Nombre</th>
+                <th className="py-2">Email</th>
+                <th className="py-2">Rol</th>
+                <th className="py-2">Cantidad de Propiedades</th>
+                <th className="py-2">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td className="py-2">{user.name}</td>
+                  <td className="py-2">{user.email}</td>
+                  <td className="py-2">{user.role}</td>
+                  <td className="py-2">{user.propertyCount}</td>
+                  <td className="py-2">
+                    <Button onClick={() => handleEdit(user)}>Editar</Button>
+                    <Button onClick={() => handleDelete(user)}>Borrar</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {isEditModalOpen && (
+        <Modal onClose={closeModal}>
+          <h2>Editar Usuario</h2>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <label>Nombre:</label>
+            <input
+              type="text"
+              name="name"
+              value={editForm.name}
+              onChange={handleEditChange}
+              className="input"
+            />
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={editForm.email}
+              onChange={handleEditChange}
+              className="input"
+            />
+            <label>Rol:</label>
+            <input
+              type="text"
+              name="role"
+              value={editForm.role}
+              onChange={handleEditChange}
+              className="input"
+            />
+            <Button onClick={saveEdit}>Guardar</Button>
+            <Button onClick={closeModal}>Cerrar</Button>
+          </form>
+        </Modal>
+      )}
+
+      {isDeleteModalOpen && (
+        <Modal onClose={closeModal}>
+          <h2>Borrar Usuario</h2>
+          <p>¿Estás seguro de que deseas borrar a {selectedUser?.name}?</p>
+          <Button onClick={closeModal}>Cancelar</Button>
+          <Button onClick={deleteUser}>Borrar</Button>
+        </Modal>
+      )}
+    </div>
+  );
+};
+
+export default Users;
