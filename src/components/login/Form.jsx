@@ -3,18 +3,20 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useUser } from "../../lib/context/useUser";
+import { useBlockUI } from "../../lib/context/useBlockUI";
 
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import UIBlocker from "../ui/UIBlocker";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState(null);
 
   const { login } = useUser();
+  const { blockUI, unblockUI } = useBlockUI();
 
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
@@ -29,7 +31,8 @@ const FormLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    blockUI("Iniciando sesión...");
+    setError(null);
 
     try {
       const response = await fetch(
@@ -47,8 +50,8 @@ const FormLogin = () => {
       );
 
       if (!response.ok) {
-        setLoading(false);
-        //ERROR MESSAGE
+        unblockUI();
+        setError("Credenciales incorrectas");
         return;
       }
 
@@ -58,68 +61,70 @@ const FormLogin = () => {
       if (token) {
         login(token);
       } else {
-        setLoading(false);
+        setError("Ocurrió un error al iniciar sesión");
+        unblockUI();
       }
     } catch (error) {
-      console.error("Login failed", error);
+      console.error("Error logging in:", error);
+      setError("Ocurrió un error al iniciar sesión");
+      unblockUI();
     }
   };
 
   return (
-    <>
-      <UIBlocker isActive={loading} message="Iniciando sesión" />
-      <form
-        className="flex flex-col gap-4 mt-6 space-y-1 text-sm"
-        onSubmit={handleLogin}
-      >
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold" htmlFor="email">
-            Email
-          </label>
+    <form
+      className="flex flex-col gap-4 mt-6 space-y-1 text-sm"
+      onSubmit={handleLogin}
+    >
+      <div className="flex flex-col gap-2">
+        <label className="font-semibold" htmlFor="email">
+          Email
+        </label>
+        <Input
+          id="email"
+          value={email}
+          onChange={handleInputChange(setEmail)}
+          placeholder="johnson@gmail.com"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label className="font-semibold" htmlFor="password">
+          Contraseña
+        </label>
+        <div className="relative w-full">
           <Input
-            id="email"
-            value={email}
-            onChange={handleInputChange(setEmail)}
-            placeholder="johnson@gmail.com"
+            id="password"
+            type={viewPassword ? "text" : "password"}
+            value={password}
+            onChange={handleInputChange(setPassword)}
+            placeholder="*********"
             required
           />
+          <button
+            type="button"
+            onClick={toggleViewPassword}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-black"
+          >
+            {viewPassword ? (
+              <EyeOff className="w-5 h-5" />
+            ) : (
+              <Eye className="w-5 h-5" />
+            )}
+          </button>
         </div>
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold" htmlFor="password">
-            Contraseña
-          </label>
-          <div className="relative w-full">
-            <Input
-              id="password"
-              type={viewPassword ? "text" : "password"}
-              value={password}
-              onChange={handleInputChange(setPassword)}
-              placeholder="*********"
-              required
-            />
-            <button
-              type="button"
-              onClick={toggleViewPassword}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-black"
-            >
-              {viewPassword ? (
-                <EyeOff className="w-5 h-5" />
-              ) : (
-                <Eye className="w-5 h-5" />
-              )}
-            </button>
-          </div>
-        </div>
-        <Button
-          disabled={isLoginDisabled}
-          type="submit"
-          className="mt-6 w-full"
-          variant="primary"
-        >
-          Iniciar sesión
-        </Button>
-      </form>
-    </>
+      </div>
+      <Button
+        disabled={isLoginDisabled}
+        type="submit"
+        className="mt-6 w-full"
+        variant="primary"
+      >
+        Iniciar sesión
+      </Button>
+
+      {error && <p className="text-red-500 text-center">{error}</p>}
+    </form>
   );
 };
 

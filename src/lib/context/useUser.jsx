@@ -28,7 +28,10 @@ export const UserProvider = ({ children }) => {
           );
           if (response.ok) {
             const userData = await response.json();
-            setUser(userData);
+            setUser({
+              token,
+              ...userData,
+            });
           } else {
             setUser(null);
           }
@@ -37,6 +40,8 @@ export const UserProvider = ({ children }) => {
 
           setUser(null);
         }
+      } else {
+        setUser(null);
       }
     };
 
@@ -48,10 +53,10 @@ export const UserProvider = ({ children }) => {
     localStorage.setItem("token", newToken);
     window.location.href = "/";
   };
-  
+
   const role = () => {
     return user?.role;
-  }
+  };
 
   const logout = () => {
     setToken(null);

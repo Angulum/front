@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeftIcon, LogOutIcon } from "lucide-react";
 import { AccountGeneral } from "../components/account/General";
 import { AccountEstates } from "../components/account/Estates";
-import { AccountSecurity } from "../components/account/Security";
 import { cn } from "../lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../lib/context/useUser";
 
 export const Account = () => {
@@ -14,7 +13,16 @@ export const Account = () => {
     setActiveTab(tab);
   };
 
-  const { logout } = useUser();
+  const { user, logout, loading } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+  if (loading) return null;
 
   return (
     <main className="max-w-full w-full overflow-hidden h-full max-h-screen flex">
@@ -54,20 +62,6 @@ export const Account = () => {
                   Propiedades
                 </button>
               </li>
-
-              <li>
-                <button
-                  onClick={() => handleTabChange("security")}
-                  className={cn(
-                    "hover:bg-[#FAFAFA] px-7 py-3 w-full text-left",
-                    {
-                      "bg-[#FAFAFA] font-semibold": activeTab === "security",
-                    }
-                  )}
-                >
-                  Seguridad
-                </button>
-              </li>
             </ul>
           </nav>
         </div>
@@ -89,7 +83,6 @@ export const Account = () => {
         <div className="sticky p-12">
           {activeTab === "general" && <AccountGeneral />}
           {activeTab === "estates" && <AccountEstates />}
-          {activeTab === "security" && <AccountSecurity />}
         </div>
       </div>
     </main>

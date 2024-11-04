@@ -3,6 +3,9 @@ import { router } from "./main";
 import { RouterProvider } from "react-router-dom";
 import { UserProvider } from "./lib/context/useUser";
 import Maintenance from "./Maintenance";
+import { BlockUIProvider } from "./lib/context/useBlockUI";
+import { ThemeProvider } from "./lib/context/useTheme";
+import { LanguageProvider } from "./lib/context/useLang";
 
 const RootComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +46,13 @@ const RootComponent = () => {
 
   return (
     <UserProvider>
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <LanguageProvider>
+          <BlockUIProvider>
+            <RouterProvider router={router} />
+          </BlockUIProvider>
+        </LanguageProvider>
+      </ThemeProvider>
     </UserProvider>
   );
 };

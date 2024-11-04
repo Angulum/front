@@ -5,6 +5,7 @@ import Input from "../ui/Input";
 import { Checkbox } from "../ui/Checkbox";
 import { Eye, EyeOff } from "lucide-react";
 import { useUser } from "../../lib/context/useUser";
+import { useBlockUI } from "../../lib/context/useBlockUI";
 
 const Form = ({ isActive }) => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,10 @@ const Form = ({ isActive }) => {
   const [phoneNumber, setPhone] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
 
+  const [error, setError] = useState(null);
+
   const { login } = useUser();
+  const { blockUI, unblockUI } = useBlockUI();
 
   const [passwordCheck, setPasswordCheck] = useState({
     length: false,
@@ -52,6 +56,8 @@ const Form = ({ isActive }) => {
 
   const handleButton = (e) => {
     e.preventDefault();
+    setError(null);
+    blockUI("Registrando usuario...");
 
     const user = {
       email,
@@ -72,9 +78,12 @@ const Form = ({ isActive }) => {
         .then((data) => {
           const token = data.accessToken;
           if (token) login(token);
-        });
+        })
+        .finally(() => unblockUI());
     } catch (error) {
       console.error("Error during registration:", error);
+      setError("Ocurrió un error al registrarse");
+      unblockUI();
     }
   };
 
@@ -183,6 +192,7 @@ const Form = ({ isActive }) => {
           El registro está actualmente deshabilitado
         </span>
       )}
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <span className="whitespace-nowrap items-center">
         Al registrarte, aceptas nuestras{" "}
         <button className="font-semibold text-black hover:underline">

@@ -3,9 +3,20 @@ import { Link } from "react-router-dom";
 
 import FormLogin from "../components/login/Form";
 import Logo from "../components/ui/Logo";
+import { useUser } from "../lib/context/useUser";
+import { useEffect } from "react";
 
 const Login = () => {
+  const { user, loading } = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/account");
+    }
+  }, [user, navigate]);
+
+  if (loading || user) return null;
 
   return (
     <div className="grid lg:grid-cols-2 h-screen overflow-hidden">

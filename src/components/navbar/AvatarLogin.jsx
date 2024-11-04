@@ -17,18 +17,27 @@ const Avatar = () => {
     <div className="flex items-center gap-2">
       {user ? (
         <>
-          {user.role === "admin" && (
-            <Button variant="secondary" onClick={() => handleNavigation("/admin")}>
+          {user.role === "ADMIN" && (
+            <Button
+              variant="secondary"
+              onClick={() => handleNavigation("/admin")}
+            >
               Ir a Admin
             </Button>
           )}
-          {user.role === "seller" && (
-            <Button variant="secondary" onClick={() => handleNavigation("/add-property")}>
+          {user.role === "SELLER" && (
+            <Button
+              variant="secondary"
+              onClick={() => handleNavigation("/add-property")}
+            >
               Agregar propiedad
             </Button>
           )}
-          {user.role === "user" || user.role === null && (
-            <Button variant="secondary" onClick={() => handleNavigation("/account")}>
+          {user.role === "USER" && (
+            <Button
+              variant="secondary"
+              onClick={() => handleNavigation("/account")}
+            >
               Mi cuenta
             </Button>
           )}
