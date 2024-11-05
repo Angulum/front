@@ -56,7 +56,9 @@ export const AccountGeneral = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl">Configuración general</h2>
+      <h2 className="font-semibold text-2xl pepe-argento">
+        {translations[language].configGeneral}
+      </h2>
 
       {/* Sección de información */}
       <div className="grid grid-cols-1 w-fit gap-8 py-8">

@@ -5,16 +5,28 @@
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
+  --primary: #391170;
+  --custom-text-color: #1eec2f; /* Color personalizado para modo claro */
 }
 
 [data-theme="dark"] {
   --background-color: #121212;
   --text-color: #ffffff;
+  --primary: #46ad7a;
+  --custom-text-color: #4614f8; /* Color personalizado para modo oscuro */
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+.text-custom {
+  color: var(--custom-text-color);
+}
+
+.pepe-argento {
+  color: var(--primary);
 }
 
 @layer base {
@@ -25,7 +37,7 @@ body {
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220.9 39.3% 11%;
+    --primary: 343 100% 39%;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
@@ -52,7 +64,7 @@ body {
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%;
+    --primary: #46ad7a;
     --primary-foreground: 220.9 39.3% 11%;
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;

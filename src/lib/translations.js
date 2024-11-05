@@ -5,6 +5,7 @@ export const translations = {
     changeLanguage: "Cambiar a Inglés",
 
     //ACCOUNT
+    configGeneral: "Configuración General",
     dark: "Oscuro",
     light: "Claro",
     theme: "Tema",
@@ -16,6 +17,7 @@ export const translations = {
     changeLanguage: "Switch to Spanish",
 
     //ACCOUNT
+    configGeneral: "General Settings",
     dark: "Dark",
     light: "Light",
     theme: "Theme",
