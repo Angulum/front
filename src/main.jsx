@@ -18,6 +18,7 @@ import Reports from "./components/admin/Reports";
 import Logs from "./components/admin/Logs";
 import RootComponent from "./RootComponent";
 import Users from "./components/admin/Users";
+import { NotFound } from "./components/NotFound";
 
 // Configuración de rutas
 export const router = createBrowserRouter([
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <OverviewEstates />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

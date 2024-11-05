@@ -25,10 +25,10 @@ const Avatar = () => {
               Ir a Admin
             </Button>
           )}
-          {user.role === "SELLER" && (
+          {user.role === "REALTOR" && (
             <Button
               variant="secondary"
-              onClick={() => handleNavigation("/add-property")}
+              onClick={() => handleNavigation("/sell")}
             >
               Agregar propiedad
             </Button>

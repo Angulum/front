@@ -1,6 +1,7 @@
 import { Spinner } from "@material-tailwind/react";
 import { XYChart, BarSeries, Axis, Grid } from "@visx/xychart";
 import { useEffect, useState } from "react";
+import { useBlockUI } from "../../lib/context/useBlockUI";
 
 const accessors = {
   xAccessor: (d) => d.label,
@@ -25,6 +26,42 @@ const colorAccessor = (d) => {
 const Reports = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { blockUI, unblockUI } = useBlockUI();
+
+  const generateReportData = async () => {
+    blockUI("Generando reporte mensual...");
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/api/report",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/pdf",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImZlbGlwZUBmZWxpcGUuY29tIiwiaWF0IjoxNzMwODM4MDUyLCJleHAiOjE3MzA4NDE2NTJ9.yAUg0i8WmKAlqjPaiWREv52p55O6SwYLs-h2_KkeCQI`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("No se pudo descargar el reporte");
+      }
+
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "Reporte_Angulum.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Error al descargar el PDF:", error);
+    } finally {
+      unblockUI();
+    }
+  };
 
   useEffect(() => {
     const fetchData = () => {
@@ -55,6 +92,12 @@ const Reports = () => {
 
   return (
     <div className="flex p-12 max-w-3xl flex-col">
+      <button
+        onClick={generateReportData}
+        className="absolute top-[100px] right-4 p-2 bg-black text-white rounded-lg"
+      >
+        Descagar reporte
+      </button>
       <h2 className="font-bold text-2xl">Reportes</h2>
       <p className="mt-2 text-[#575757]">
         Analiza las estadísticas detalladamente y descárgalas para utilizarlas

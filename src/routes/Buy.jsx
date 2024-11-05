@@ -1,9 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import Navbar from "../components/navbar/Navbar";
 import CardGrid from "../components/estates/CardPublications/CardGrid";
 import Footer from "../components/Footer";
 import Searcher from "../components/estates/CardPublications/Searcher";
+import { Spinner } from "@material-tailwind/react";
+import CardGridLoading from "../components/estates/CardPublications/CardGridLoading";
 
 // Crear un array de 20 propiedades simuladas
 const generateProperties = () => {
@@ -28,21 +30,50 @@ const generateProperties = () => {
 };
 
 const Buy = () => {
-  const navigate = useNavigate(); // Hook para la navegación
-  const properties = generateProperties();
+  const [loading, setLoading] = useState(true);
+  const [properties, setProperties] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [search, setSearch] = useState("");
+  const [orderBy, setOrderBy] = useState("id");
+  const [ascending, setAscending] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const itemsPerPage = 5;
   const containerRef = useRef(null);
 
-  // Calcular las propiedades que se deben mostrar en la página actual
-  const indexOfLastProperty = currentPage * itemsPerPage;
-  const indexOfFirstProperty = indexOfLastProperty - itemsPerPage;
-  const currentProperties = properties.slice(
-    indexOfFirstProperty,
-    indexOfLastProperty
-  );
+  const navigate = useNavigate();
 
-  const totalPages = Math.ceil(properties.length / itemsPerPage);
+  useEffect(() => {
+    setLoading(true);
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/real-estate/page?page=${
+            currentPage - 1
+          }&size=${itemsPerPage}&sortBy=${orderBy}&ascending=${ascending}${
+            search ? `&search=${search}` : ""
+          }`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        setProperties(data.content);
+        setTotalPages(data.totalPages);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, [ascending, currentPage, orderBy, search]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -54,9 +85,8 @@ const Buy = () => {
     }
   };
 
-  // Callback para manejar el clic en una tarjeta y navegar a la ruta con el id
   const handleCardClick = (propertyId) => {
-    navigate(`/sell/${propertyId}`); // Navega a la página de detalles de la propiedad
+    navigate(`/sell/${propertyId}`);
   };
 
   return (
@@ -66,27 +96,30 @@ const Buy = () => {
       <div className="mt-20">
         <Searcher />
         <div className="flex flex-col gap-4 relative bg-white">
-          {/* Contenedor con ref para el scroll */}
-          <div ref={containerRef}>
-            {/* Pasa el callback para manejar el clic en una tarjeta */}
-            <CardGrid cards={currentProperties} onCardClick={handleCardClick} />
-          </div>
-          {/* Paginación */}
-          <div className="flex justify-center gap-2 mt-4">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                className={`px-4 py-2 rounded mb-8 ${
-                  currentPage === index + 1
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300 text-black"
-                }`}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
+          {loading ? (
+            <CardGridLoading />
+          ) : (
+            <>
+              <div ref={containerRef}>
+                <CardGrid cards={properties} onCardClick={handleCardClick} />
+              </div>
+              <div className="flex justify-center gap-2 mt-4">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index + 1}
+                    className={`px-4 py-2 rounded mb-8 ${
+                      currentPage === index + 1
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-300 text-black"
+                    }`}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
         <Footer />
       </div>
