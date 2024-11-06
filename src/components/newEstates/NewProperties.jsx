@@ -28,23 +28,52 @@ const NewProperties = () => {
     contactClicks: 0,
     ownerId: user.id,
   });
-  
 
   // Función para manejar los cambios en el formulario
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   // Subir imágenes
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
+
+    files.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64 = reader.result.split(",")[1];
+
+        fetch(
+          "https://api.imgbb.com/1/upload?key=" +
+            import.meta.env.VITE_IMGBB_API_KEY,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              key: "c9c2c3b6f6c1f9d3e6f5b2e2b0c2f4a1",
+              image: base64,
+            }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Imagen subida:", data);
+          });
+      };
+    });
+
     setFormData((prev) => ({
       ...prev,
-      imagenes: [...prev.imagenes, ...files]
+      images: [...prev.images, ...files],
     }));
+
+    console.log("Imagenes subidas:", formData.images);
   };
 
   // Subir documentos
@@ -52,7 +81,7 @@ const NewProperties = () => {
     const files = Array.from(e.target.files);
     setFormData((prev) => ({
       ...prev,
-      documentos: [...prev.documentos, ...files]
+      documentos: [...prev.documentos, ...files],
     }));
   };
 
@@ -63,7 +92,7 @@ const NewProperties = () => {
     const files = Array.from(e.dataTransfer.files);
     setFormData((prev) => ({
       ...prev,
-      imagenes: [...prev.imagenes, ...files]
+      imagenes: [...prev.imagenes, ...files],
     }));
   };
   const handleDropDocuments = (e) => {
@@ -71,7 +100,7 @@ const NewProperties = () => {
     const files = Array.from(e.dataTransfer.files);
     setFormData((prev) => ({
       ...prev,
-      documentos: [...prev.documentos, ...files]
+      documentos: [...prev.documentos, ...files],
     }));
   };
 

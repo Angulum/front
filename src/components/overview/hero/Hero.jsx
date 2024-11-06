@@ -7,23 +7,30 @@ import HotelIcon from "../../icons/HotelIcon";
 import MegaHomeIcon from "../../icons/MegaHomeIcon";
 import Input from "../../ui/Input";
 
+import { useLanguage } from "../../../lib/context/useLang";
+import { translations } from "../../../lib/translations";
+
 const Hero = () => {
+  const { language } = useLanguage();
+
   const { user } = useUser();
-  
+
   return (
     <div className="flex my-auto items-center text-center text-white flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
       <h1 className="text-[50px] font-semibold">
-        Tu hogar, nuestro compromiso
+        {translations[language].slogan}
       </h1>
       <h2 className="text-[24px]">
-        Busca inmuebles en venta o en alquiler en Rosario
+        {translations[language].heroDesc}
       </h2>
       <Input
         type="text"
         className="w-[80%] mt-6"
         placeholder="Casa, departamento en el centro..."
       />
-      <p className="mt-10">¿Qué estás buscando ahora?</p>
+      <p className="mt-10">
+        {translations[language].heroQuestion}
+      </p>
       <div className="mt-4 flex gap-6">
         <Link to={"/buy"}>
           <OverviewButton

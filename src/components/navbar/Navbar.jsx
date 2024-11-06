@@ -19,10 +19,6 @@ const Navbar = () => {
     setIsLogged(hasToken());
   }, []);
 
-  const calculeActive = (link) => {
-    return document.location.pathname === link;
-  };
-
   return (
     <div className="w-full fixed top-0 bg-[#FAFAFA] z-[999] border-b border-black/10 backdrop-blur-sm ">
       <nav className="flex justify-between py-3.5 max-w-[80%] mx-auto ">
@@ -31,6 +27,10 @@ const Navbar = () => {
         <ul className="items-center gap-3 sm:flex hidden">
           {ITEMS.map((item) => {
             let link = item.link;
+
+            const calculeActive = (link) => {
+              return document.location.pathname === link;
+            };
 
             if (item.title === "Vender") {
               link = isLogged && isLogged ? "/vender" : "/login";

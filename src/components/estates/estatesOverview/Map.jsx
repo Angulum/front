@@ -1,33 +1,63 @@
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-// Icono personalizado para el marcador
+// Configuración del icono personalizado para el marcador
 delete L.Icon.Default.prototype._getIconUrl;
-
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
 });
 
-const Map = () => {
-    const lat = -32.9472; // Latitud de Crespo 172, Rosario
-    const lng = -60.6424; // Longitud de Crespo 172, Rosario
-    const popupText = "Crespo 172, Rosario, Santa Fe, Argentina";
-    return (
-      <div className="w-full h-96">
-        <MapContainer center={[lat, lng]} zoom={13} scrollWheelZoom={false} className="h-full">
+const MapComponent = ({ location }) => {
+  const [position, setPosition] = useState(null);
+
+  useEffect(() => {
+    const geocodeAddress = async () => {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        location
+      )}, Rosario, Argentina`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data && data.length > 0) {
+          const { lat, lon } = data[0];
+          setPosition([lat, lon]);
+        } else {
+          console.error("Geocode falló: No se encontraron resultados");
+        }
+      } catch (error) {
+        console.error("Geocode falló:", error);
+      }
+    };
+    geocodeAddress();
+  }, [location]);
+
+  return (
+    <div className="w-full h-96">
+      {position ? (
+        <MapContainer
+          center={position}
+          zoom={13}
+          scrollWheelZoom={false}
+          className="h-full"
+        >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          <Marker position={[lat, lng]}>
-            <Popup>{popupText}</Popup>
+          <Marker position={position}>
+            <Popup>{location}</Popup>
           </Marker>
         </MapContainer>
-      </div>
-    );
-  };
+      ) : (
+        <p>Cargando mapa...</p>
+      )}
+    </div>
+  );
+};
 
-export default Map;
+export default MapComponent;
