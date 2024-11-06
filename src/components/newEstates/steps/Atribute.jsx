@@ -62,9 +62,8 @@ const Atribute = ({ nextStep, formData, handleChange }) => (
           className="w-full mt-1 p-2 border rounded-md bg-white"
         >
           <option value="" disabled>Selecciona una opción</option>
-          <option value="departamento">Departamento</option>
-          <option value="casa">Casa</option>
-          <option value="ph">PH</option>
+          <option value="APARTMENT">Departamento</option>
+          <option value="HOUSE">Casa</option>
         </select>
       </div>
 
@@ -79,8 +78,8 @@ const Atribute = ({ nextStep, formData, handleChange }) => (
           placeholder="Ej. alquiler, venta"
         >
           <option value="" disabled>Selecciona una opción</option>
-          <option value="venta">Venta</option>
-          <option value="alquiler">Alquiler</option>
+          <option value="SALE">Venta</option>
+          <option value="RENT">Alquiler</option>
         </select>
       </div>
 

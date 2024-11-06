@@ -6,24 +6,27 @@ import { useUser } from "../../lib/context/useUser";
 
 const NewProperties = () => {
 
-  const { token } = useUser();
+  const { user, token } = useUser();
   const [step, setStep] = useState(1); 
   const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    price: '',
-    expenses: '',
-    tags: [],
-    type: '',
+    ambients: '',
+    antiquity: '',
+    bathrooms: '',
     contract: '',
     description: '',
-    ambients: '',
-    rooms: '',
-    bathrooms: '',
-    squareFeet: '',
+    expenses: '',
+    location: '',
+    name: '',
     parking: '',
-    antiquity: '',
-    ownerId: 1,
+    price: '',
+    rooms: '',
+    squareFeet: '',
+    type: '',
+    tags: ('SALE'),
+    clicks: 0,
+    uniqueClicks: 0,
+    contactClicks: 0,
+    ownerId: user.id,
   });
   
 
@@ -78,22 +81,34 @@ const NewProperties = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
+    try {
+      console.log("Token de autenticación:", token);
       console.log("Creando propiedad:", formData);
-    const response = await fetch("http://localhost:8080/real-estate/create",{
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: {
-        ...formData,
+  
+      const response = await fetch("http://localhost:8080/real-estate/create", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Propiedad creada:", data);
+      } else if (response.status === 403) {
+        console.error("Error 403: Forbidden. Verifica el token o permisos de autenticación.");
+      } else {
+        console.error("Error al crear la propiedad:", response.status);
+        const errorData = await response.text();
+        console.error("Detalles del error:", errorData);
       }
-    });
-    console.log("Propiedad creada:", response.data);
-  } catch (error) {
-    console.error("Error al crear la propiedad:", error);
-  }
+    } catch (error) {
+      console.error("Error al crear la propiedad:", error);
+    }
   };
+  
 
   const handleTermsChange = (e) => {
     setFormData({

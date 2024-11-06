@@ -34,13 +34,16 @@ export const UserProvider = ({ children }) => {
             });
           } else {
             setUser(null);
+            setToken(null);
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
 
           setUser(null);
+          setToken(null);
         }
       } else {
+        setToken(null);
         setUser(null);
       }
     };

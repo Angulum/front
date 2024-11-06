@@ -10,8 +10,8 @@ import Buy from "./routes/Buy";
 import Sell from "./routes/Sell";
 import OverviewEstates from "./routes/OverviewEstates";
 import { Account } from "./routes/Account";
-import AdminLogin from "./components/admin/Login";
 import AdminWrapper from "./components/admin/Wrapper";
+import SellerWrapper from "./components/newEstates/Wrapper";
 import Services from "./components/admin/Services";
 import Status from "./components/admin/Status";
 import Reports from "./components/admin/Reports";
@@ -44,15 +44,16 @@ export const router = createBrowserRouter([
   },
   {
     path: "/sell",
-    element: <Sell />,
+    element: (
+      <SellerWrapper>
+        <Sell />,
+      </SellerWrapper>
+    )
+      
   },
   {
     path: "/account",
     element: <Account />,
-  },
-  {
-    path: "/admin",
-    element: <AdminLogin />,
   },
   {
     path: "/admin/services",

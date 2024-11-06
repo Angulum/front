@@ -20,7 +20,7 @@ const Avatar = () => {
           {user.role === "ADMIN" && (
             <Button
               variant="secondary"
-              onClick={() => handleNavigation("/admin")}
+              onClick={() => handleNavigation("/admin/services")}
             >
               Ir a Admin
             </Button>
@@ -33,16 +33,9 @@ const Avatar = () => {
               Agregar propiedad
             </Button>
           )}
-          {user.role === "USER" && (
-            <Button
-              variant="secondary"
-              onClick={() => handleNavigation("/account")}
-            >
-              Mi cuenta
-            </Button>
-          )}
           <div
-            className="w-10 h-10 rounded-full  
+          onClick={() => handleNavigation("/account")}
+            className="w-10 h-10 rounded-full cursor-pointer  
               inline-flex items-center justify-center  
               bg-[#F5F5F5] font-semibold border border-black/20"
           >

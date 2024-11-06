@@ -1,9 +1,9 @@
-import AdminNavbar from "./Navbar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../lib/context/useUser";
+import NewProperties from "./NewProperties";
 
-const AdminWrapper = ({ children }) => {
+const SellerWrapper = ({ children }) => {
   
   const { user, loading } = useUser();
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ const AdminWrapper = ({ children }) => {
       navigate("/");
     }
 
-    if (user && user.role == "ADMIN") {
-      navigate("/admin/services");
+    if (user && user.role == "REALTOR" ||user && user.role == "ADMIN") {
+      navigate("/sell");
     } else {
-      navigate("/login");
+      navigate("/");
     }
   }, [user, navigate, loading]);
 
@@ -26,10 +26,10 @@ const AdminWrapper = ({ children }) => {
 
   return (
     <div className="h-screen overflow-hidden flex flex-col">
-      <AdminNavbar />
+      <NewProperties />
       {children}
     </div>
   );
 };
 
-export default AdminWrapper;
+export default SellerWrapper;
