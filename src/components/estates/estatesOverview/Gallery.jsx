@@ -50,11 +50,11 @@ const Gallery = ({ images }) => {
 
       <div className="flex justify-center space-x-2">
         {images.length > 1 &&
-          images.map(({ imgelink }, index) => (
+          images.map((image, index) => (
             <img
               key={index}
               onClick={() => setActiveIndex(index)}
-              src={imgelink}
+              src={image}
               className={`h-[100px] w-[100px] cursor-pointer rounded-lg object-cover object-center transition-transform duration-300 hover:scale-110 ${
                 activeIndex === index ? "ring-2 ring-blue-500" : ""
               }`}

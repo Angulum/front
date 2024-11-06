@@ -8,8 +8,8 @@ import { useBlockUI } from "../../lib/context/useBlockUI";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
-import useLanguage from "../../lib/context/useLang";
-import translations from "../../lib/translations";
+import { translations } from "../../lib/translations";
+import { useLanguage } from "../../lib/context/useLang";
 
 const FormLogin = () => {
   const { language } = useLanguage();
