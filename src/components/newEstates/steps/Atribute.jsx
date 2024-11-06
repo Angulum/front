@@ -83,6 +83,18 @@ const Atribute = ({ nextStep, formData, handleChange }) => (
         </select>
       </div>
 
+      <div>
+          <label className="block text-sm font-medium">Contacto</label>
+          <input
+            type="text"
+            name="contact"
+            value={formData.contact}
+            onChange={handleChange}
+            className="w-full mt-1 p-2 border rounded-md"
+            placeholder="https://wa.me/5493412345678"
+          />
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium">Ambientes</label>
@@ -95,6 +107,7 @@ const Atribute = ({ nextStep, formData, handleChange }) => (
             placeholder="Ej. 3"
           />
         </div>
+
         <div>
           <label className="block text-sm font-medium">Habitaciones</label>
           <input

@@ -3,15 +3,20 @@ import Atribute from "./steps/Atribute";
 import Docs from "./steps/Docs";
 import Temes from "./steps/Terms";
 import { useUser } from "../../lib/context/useUser";
+import { useBlockUI } from "../../lib/context/useBlockUI";
+import { useNavigate } from "react-router-dom";
 
 const NewProperties = () => {
 
+  const navigate = useNavigate();
+  const { blockUI, unblockUI } = useBlockUI();
   const { user, token } = useUser();
   const [step, setStep] = useState(1); 
   const [formData, setFormData] = useState({
     ambients: '',
     antiquity: '',
     bathrooms: '',
+    contact: '',
     contract: '',
     description: '',
     expenses: '',
@@ -22,10 +27,12 @@ const NewProperties = () => {
     rooms: '',
     squareFeet: '',
     type: '',
-    tags: ('SALE'),
+    tags: ['SALE'],
     clicks: 0,
     uniqueClicks: 0,
     contactClicks: 0,
+    images: [],
+    favoriteCount: 0,
     ownerId: user.id,
   });
 
@@ -111,9 +118,7 @@ const NewProperties = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Token de autenticación:", token);
-      console.log("Creando propiedad:", formData);
-  
+      blockUI("Creando propiedad...");  
       const response = await fetch("http://localhost:8080/real-estate/create", {
         method: "POST",
         headers: {
@@ -125,6 +130,7 @@ const NewProperties = () => {
   
       if (response.ok) {
         const data = await response.json();
+        navigate(`/buy/${data.id}`);
         console.log("Propiedad creada:", data);
       } else if (response.status === 403) {
         console.error("Error 403: Forbidden. Verifica el token o permisos de autenticación.");
@@ -136,6 +142,7 @@ const NewProperties = () => {
     } catch (error) {
       console.error("Error al crear la propiedad:", error);
     }
+    unblockUI();
   };
   
 
