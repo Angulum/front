@@ -1,11 +1,16 @@
 import PublicationCard from "./Card";
 
+import { useLanguage } from "../../../lib/context/useLang";
+import { translations } from "../../../lib/translations";
+
 const Publications = () => {
+  const { language } = useLanguage();
+
   return (
     <div className="flex flex-col w-full py-12 gap-12">
       <div className="flex gap-8 items-center">
         <h3 className="text-[40px] font-semibold whitespace-nowrap">
-          Publicaciones destacadas
+        {translations[language].featured}
         </h3>
         <div className="h-0.5 w-full bg-black/10" />
       </div>

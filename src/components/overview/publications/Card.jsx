@@ -1,7 +1,12 @@
 import AttributesCard from "./AtrributesCard";
 import Tag from "../../ui/Tag";
 
+import { useLanguage } from "../../../lib/context/useLang";
+import { translations } from "../../../lib/translations";
+
 const PublicationCard = ({ publication }) => {
+  const { language } = useLanguage();
+
   return (
     <div className="flex flex-col relative border border-black/20 rounded-lg overflow-hidden">
       <div className="absolute top-4 left-4 flex items-center gap-2">
@@ -31,7 +36,9 @@ const PublicationCard = ({ publication }) => {
 
         <div className="h-0.5 w-full bg-black/10 my-5" />
 
-        <p className="font-medium text-[20px]">Contacto del vendedor</p>
+        <p className="font-medium text-[20px]">
+          {translations[language].cardContact}
+        </p>
 
         <div className=" text-[#575757]">
           <p>{publication.vendor}</p>

@@ -4,7 +4,12 @@ import { Heart } from "lucide-react";
 import Tag from "../../ui/Tag";
 import { cn } from "../../../lib/utils";
 
+import { useLanguage } from "../../../lib/context/useLang";
+import { translations } from "../../../lib/translations";
+
 const Card = ({ property }) => {
+  const { language } = useLanguage();
+
   const navigate = useNavigate();
   const [favorite, setFavorite] = useState(false);
   const [setColorChecked] = useState("fill-red-500");
@@ -46,30 +51,30 @@ const Card = ({ property }) => {
         <p className="text-gray-500">{property.location}</p>
         <div className="flex space-x-4 my-2">
           <div className="flex items-center">
-            <span className="text-gray-600">Habitaciones:</span>
+            <span className="text-gray-600">{translations[language].rooms}:</span>
             <span className="ml-1 text-gray-800 font-semibold">
               {property.rooms}
             </span>
           </div>
           <div className="flex items-center">
-            <span className="text-gray-600">Baños:</span>
+            <span className="text-gray-600">{translations[language].bathrooms}:</span>
             <span className="ml-1 text-gray-800 font-semibold">
               {property.bathrooms}
             </span>
           </div>
           <div className="flex items-center">
-            <span className="text-gray-600">Metros cuadrados:</span>
+            <span className="text-gray-600">{translations[language].squarem}:</span>
             <span className="ml-1 text-gray-800 font-semibold">
               {property.size}
             </span>
           </div>
         </div>
         <div className="text-lg text-gray-800 font-bold mb-2">
-          {property.price} ARS / mensual
+          {property.price} {translations[language].price}
         </div>
         <p className="text-gray-700 mb-4">{property.description}</p>
         <div className="border-t pt-4">
-          <h4 className="text-gray-600 font-semibold">Contacto del vendedor</h4>
+          <h4 className="text-gray-600 font-semibold">{translations[language].cardContact}</h4>
           <div className="flex items-center mt-2">
             <img
               className="w-8 h-8 rounded-full"

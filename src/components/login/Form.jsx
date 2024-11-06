@@ -8,7 +8,12 @@ import { useBlockUI } from "../../lib/context/useBlockUI";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
+import useLanguage from "../../lib/context/useLang";
+import translations from "../../lib/translations";
+
 const FormLogin = () => {
+  const { language } = useLanguage();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
@@ -90,7 +95,7 @@ const FormLogin = () => {
       </div>
       <div className="flex flex-col gap-2">
         <label className="font-semibold" htmlFor="password">
-          Contraseña
+          {translations[language].password}
         </label>
         <div className="relative w-full">
           <Input
@@ -120,7 +125,7 @@ const FormLogin = () => {
         className="mt-6 w-full"
         variant="primary"
       >
-        Iniciar sesión
+        {translations[language].login}
       </Button>
 
       {error && <p className="text-red-500 text-center">{error}</p>}

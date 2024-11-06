@@ -64,14 +64,13 @@ export const AccountGeneral = () => {
       <div className="grid grid-cols-1 w-fit gap-8 py-8">
         {/* Tu información */}
         <div className="col-span-1 border border-black/10 p-4 rounded-xl">
-          <h3 className="text-lg font-medium mb-4">Tu información</h3>
+          <h3 className="text-lg font-medium mb-4">translations[language].infoTitle</h3>
           <p className="text-gray-500 mb-4">
-            Cualquier cambio en esta sección no modificará nada que no sea
-            visual.
+            {translations[language].infoDesc}
           </p>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">
-              Nombre y apellido
+              {translations[language].nameTitle}
             </label>
             <input
               type="text"
@@ -82,7 +81,7 @@ export const AccountGeneral = () => {
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">
-              Nombre de usuario
+              {translations[language].usernameTitle}
             </label>
             <input
               type="text"
@@ -95,7 +94,7 @@ export const AccountGeneral = () => {
             onClick={handleGuardarCambios}
             className="bg-gray-800 text-white px-4 py-2 rounded-lg"
           >
-            Guardar cambios
+            {translations[language].save}
           </button>
         </div>
 
@@ -109,32 +108,28 @@ export const AccountGeneral = () => {
           </p>
           <div className="flex space-x-4">
             <button
-              className={`p-4 border rounded-lg ${
-                theme === "light"
-                  ? "border-gray-800 font-bold bg-gray-100"
-                  : "border-gray-300"
-              }`}
+              className={`p-4 border rounded-lg ${theme === "light"
+                ? "border-gray-800 font-bold bg-gray-100"
+                : "border-gray-300"
+                }`}
               onClick={() => toggleTheme()}
             >
               <Sun
-                className={`w-24 h-12 object-cover ${
-                  theme === "light" ? "fill-gray-900" : "fill-white"
-                }`}
+                className={`w-24 h-12 object-cover ${theme === "light" ? "fill-gray-900" : "fill-white"
+                  }`}
               />
               {translations[language].light}
             </button>
             <button
-              className={`p-4 border rounded-lg ${
-                theme === "dark"
-                  ? "border-gray-800 font-bold bg-gray-100"
-                  : "border-gray-300"
-              }`}
+              className={`p-4 border rounded-lg ${theme === "dark"
+                ? "border-gray-800 font-bold bg-gray-100"
+                : "border-gray-300"
+                }`}
               onClick={() => toggleTheme()}
             >
               <Moon
-                className={`w-24 h-12 object-cover ${
-                  theme === "dark" ? "fill-gray-900" : "fill-white"
-                }`}
+                className={`w-24 h-12 object-cover ${theme === "dark" ? "fill-gray-900" : "fill-white"
+                  }`}
               />
               {translations[language].dark}
             </button>
@@ -147,11 +142,10 @@ export const AccountGeneral = () => {
           <p className="text-gray-500 mb-4">Cambia el idioma de la interfaz.</p>
           <div className="flex space-x-4">
             <button
-              className={`p-4 border rounded-lg ${
-                language === "es"
-                  ? "border-gray-800 font-bold bg-gray-100"
-                  : "border-gray-300"
-              }`}
+              className={`p-4 border rounded-lg ${language === "es"
+                ? "border-gray-800 font-bold bg-gray-100"
+                : "border-gray-300"
+                }`}
               onClick={() => toggleLanguage("es")}
             >
               <img
@@ -162,11 +156,10 @@ export const AccountGeneral = () => {
               Español
             </button>
             <button
-              className={`p-4 border rounded-lg ${
-                language === "en"
-                  ? "border-gray-800 font-bold bg-gray-100"
-                  : "border-gray-300"
-              }`}
+              className={`p-4 border rounded-lg ${language === "en"
+                ? "border-gray-800 font-bold bg-gray-100"
+                : "border-gray-300"
+                }`}
               onClick={() => toggleLanguage("en")}
             >
               <img
@@ -182,11 +175,10 @@ export const AccountGeneral = () => {
         {/* Borrar cuenta */}
         <div className="col-span-1 border border-red-500/40 p-4 rounded-xl">
           <h3 className="text-lg font-medium mb-4 text-red-600">
-            Borrar cuenta
+            {translations[language].deleteAccount}
           </h3>
           <p className="text-gray-500 mb-4">
-            Esta acción eliminará toda tu información, incluyendo las
-            propiedades y estadísticas que tengas hasta ahora.
+            {translations[language].deleteDesc}
           </p>
           <button
             data-modal-target="popup-modal"
@@ -195,20 +187,19 @@ export const AccountGeneral = () => {
             type="button"
             onClick={handleOpenModal}
           >
-            Eliminar
+            {translations[language].deleteButton}
           </button>
           <div
             id="default-modal"
             aria-hidden="true"
-            className={`${
-              eliminarCuenta ? "flex" : "hidden"
-            } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full`}
+            className={`${eliminarCuenta ? "flex" : "hidden"
+              } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full`}
           >
             <div className="relative p-4 w-full max-w-md max-h-full">
               <div className="relative bg-black rounded-lg shadow dark:bg-gray-900">
                 <div className="flex items-center justify-between p-4 md:p-5 border-b border-gray-800 rounded-t">
                   <h3 className="text-xl font-semibold text-white">
-                    Eliminar Cuenta
+                    {translations[language].deleteAccount}
                   </h3>
                   <button
                     type="button"
@@ -227,14 +218,13 @@ export const AccountGeneral = () => {
                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                       />
                     </svg>
-                    <span className="sr-only">Close modal</span>
+                    <span className="sr-only">{translations[language].closeModal}</span>
                   </button>
                 </div>
 
                 <div className="p-4 md:p-5 space-y-4">
                   <p className="text-base leading-relaxed text-gray-300">
-                    ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción
-                    no se puede deshacer.
+                  {translations[language].deleteAccountConfirmText}
                   </p>
                 </div>
 
@@ -246,13 +236,13 @@ export const AccountGeneral = () => {
                     }}
                     className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:focus:ring-red-800"
                   >
-                    Eliminar cuenta
+                    {translations[language].deleteAccount}
                   </button>
                   <button
                     onClick={handleCloseModal}
                     className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-400 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700 hover:text-white"
                   >
-                    Cancelar
+                    {translations[language].cancel}
                   </button>
                 </div>
               </div>

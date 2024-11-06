@@ -3,7 +3,12 @@ import Button from "../ui/Button";
 import { useUser } from "../../lib/context/useUser";
 import Skeleton from "../ui/Skeleton";
 
+import { useLanguage } from "../../lib/context/useLang";
+import { translations } from "../../lib/translations";
+
 const Avatar = () => {
+  const { language } = useLanguage();
+
   const { user, loading } = useUser();
   const navigate = useNavigate();
 
@@ -22,7 +27,7 @@ const Avatar = () => {
               variant="secondary"
               onClick={() => handleNavigation("/admin")}
             >
-              Ir a Admin
+              {translations[language].goAdmin}
             </Button>
           )}
           {user.role === "REALTOR" && (
@@ -30,7 +35,7 @@ const Avatar = () => {
               variant="secondary"
               onClick={() => handleNavigation("/sell")}
             >
-              Agregar propiedad
+              {translations[language].addRealEstate}
             </Button>
           )}
           {user.role === "USER" && (
@@ -38,7 +43,7 @@ const Avatar = () => {
               variant="secondary"
               onClick={() => handleNavigation("/account")}
             >
-              Mi cuenta
+              {translations[language].account}
             </Button>
           )}
           <div
@@ -51,7 +56,7 @@ const Avatar = () => {
         </>
       ) : (
         <Button variant="secondary" onClick={() => handleNavigation("/login")}>
-          Iniciar sesión
+          {translations[language].login}
         </Button>
       )}
     </div>
