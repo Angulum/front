@@ -13,7 +13,7 @@ const Form = ({ isActive }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhone] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
-  const [cuit, setCuit] = useState("");
+  const [cuilt, setCuilt] = useState("");
 
   const [error, setError] = useState(null);
 
@@ -35,6 +35,7 @@ const Form = ({ isActive }) => {
       passwordCheck.lowerCase &&
       passwordCheck.number &&
       email &&
+      (cuilt.length <= 0 || cuilt.length === 11) &&
       password &&
       name &&
       phoneNumber
@@ -65,7 +66,7 @@ const Form = ({ isActive }) => {
       password,
       name,
       phoneNumber,
-      cuit,
+      cuilt,
     };
 
     try {
@@ -104,6 +105,10 @@ const Form = ({ isActive }) => {
 
   const handlePhoneChange = (e) => {
     setPhone(e.target.value);
+  };
+
+  const handleCuitChange = (e) => {
+    setCuilt(e.target.value);
   };
 
   const handleViewPassword = () => {
@@ -145,6 +150,17 @@ const Form = ({ isActive }) => {
           onChange={handlePhoneChange}
           placeholder={"3417654321"}
           value={phoneNumber}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="font-semibold " htmlFor="phone">
+          CUIT - Solo si desea vender
+        </label>
+        <Input
+          onChange={handleCuitChange}
+          placeholder={"20423456751"}
+          value={cuilt}
         />
       </div>
 
