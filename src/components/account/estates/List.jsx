@@ -3,7 +3,12 @@ import { useUser } from "../../../lib/context/useUser";
 import Modal from "../../ui/Modal";
 import { useBlockUI } from "../../../lib/context/useBlockUI";
 
+import { useLanguage } from "../../../lib/context/useLang";
+import { translations } from "../../../lib/translations";
+
 const PropertyItem = ({ location, type, price, handleDelete }) => {
+  const { language } = useLanguage();
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   return (
@@ -11,20 +16,20 @@ const PropertyItem = ({ location, type, price, handleDelete }) => {
       {openDeleteModal && (
         <Modal>
           <div className="p-2 bg-white rounded-lg">
-            <h2 className="text-lg font-bold mb-4">Eliminar propiedad</h2>
-            <p>¿Estás seguro que deseas eliminar esta propiedad?</p>
+            <h2 className="text-lg font-bold mb-4">{translations[language].deleteRE}</h2>
+            <p>{translations[language].deleteREQ}</p>
             <div className="flex justify-end mt-4 gap-2">
               <button
                 className="px-4 py-2 text-white bg-red-500 rounded-lg"
                 onClick={handleDelete}
               >
-                Eliminar
+                {translations[language].delete}
               </button>
               <button
                 className="px-4 py-2 text-gray-600 hover:text-gray-800"
                 onClick={() => setOpenDeleteModal(false)}
               >
-                Cancelar
+                {translations[language].cancel}
               </button>
             </div>
           </div>
@@ -103,7 +108,7 @@ const PropertyList = () => {
   }, [user]);
 
   if (loading) {
-    return <p>Cargando propiedades...</p>;
+    return <p>{translations[language].loadingRE}</p>;
   }
 
   if (error) {
@@ -111,7 +116,7 @@ const PropertyList = () => {
   }
 
   if (properties.length === 0) {
-    return <p>No tienes propiedades</p>;
+    return <p>{translations[language].noRE}</p>;
   }
 
   const handleDelete = (id) => {

@@ -67,7 +67,15 @@ export const translations = {
     recent: "Mas recientes",
     old: "Mas antiguos",
     cheapest: "Mas baratos",
-    expensive: "Mas caros"
+    expensive: "Mas caros",
+
+    // ADMIN REAL ESTATE LIST
+    deleteRE: "Eliminar propiedad",
+    deleteREQ: "¿Estas seguro que deseas eliminar esta propiedad?",
+    delete: "Eliminar",
+    loadingRE: "Cargando propiedades...",
+    noRE: "No tienes propiedades",
+    
   },
   en: {
     back: "Back",
@@ -134,6 +142,14 @@ export const translations = {
     recent: "Most recent",
     old: "Oldest",
     cheapest: "Cheapest",
-    expensive: "Most expensive"
+    expensive: "Most expensive",
+
+    // ADMIN REAL ESTATE LIST
+    deleteRE: "Delete Real Estate",
+    deleteREQ: "Are you sure you want to delete this real estate?",
+    delete: "Delete",
+    loadingRE: "Loading real estate...",
+    noRE: "You don't have any Real Estate",
+
   },
 };
