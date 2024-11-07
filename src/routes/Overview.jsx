@@ -31,7 +31,7 @@ const Overview = () => {
         </div>
       </Section>
 
-      <Section className="bg-[#f8ebe3] h-fit">
+      {/* <Section className="bg-[#f8ebe3] h-fit">
         <div className="grid lg:grid-cols-4 py-12 sm:max-w-[80%] mx-auto z-[2] gap-8">
           <OfferButton
             offer="Departamentos en alquiler mas vistos"
@@ -50,7 +50,7 @@ const Overview = () => {
             href="/buy"
           />
         </div>
-      </Section>
+      </Section> */}
 
       <Section className="h-full bg-[#F7F7F7]">
         <div className="mx-auto h-full w-full sm:max-w-[80%]">

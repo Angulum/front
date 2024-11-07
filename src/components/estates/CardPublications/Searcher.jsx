@@ -14,7 +14,7 @@ const Sercher = ({ setSearch, setPropertyType, setOperation }) => {
           className="col-span-2"
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select
+        {/* <select
           className="p-2 rounded"
           onChange={(e) => setPropertyType(e.target.value)}
         >
@@ -29,7 +29,7 @@ const Sercher = ({ setSearch, setPropertyType, setOperation }) => {
           <option value="">Operacion</option>
           <option value="BUY">{translations[language].buy}</option>
           <option value="LEASE">{translations[language].lease}</option>
-        </select>
+        </select> */}
       </div>
     </div>
   );

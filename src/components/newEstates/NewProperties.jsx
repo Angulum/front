@@ -7,31 +7,33 @@ import { useBlockUI } from "../../lib/context/useBlockUI";
 import { useNavigate } from "react-router-dom";
 
 const NewProperties = () => {
-
   const navigate = useNavigate();
   const { blockUI, unblockUI } = useBlockUI();
   const { user, token } = useUser();
-  const [step, setStep] = useState(1); 
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    ambients: '',
-    antiquity: '',
-    bathrooms: '',
-    contact: '',
-    contract: '',
-    description: '',
-    expenses: '',
-    location: '',
-    name: '',
-    parking: '',
-    price: '',
-    rooms: '',
-    squareFeet: '',
-    type: '',
-    tags: ['SALE'],
+    ambients: "",
+    antiquity: "",
+    bathrooms: "",
+    contact: "",
+    contract: "",
+    description: "",
+    expenses: "",
+    location: "",
+    name: "",
+    parking: "",
+    price: "",
+    rooms: "",
+    squareFeet: "",
+    type: "",
+    tags: ["SALE"],
     clicks: 0,
     uniqueClicks: 0,
     contactClicks: 0,
-    images: [],
+    images: [
+      "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    ],
     favoriteCount: 0,
     ownerId: user.id,
   });
@@ -46,6 +48,8 @@ const NewProperties = () => {
 
   // Subir imágenes
   const handleImageUpload = (e) => {
+    return;
+
     const files = Array.from(e.target.files);
 
     files.map((file) => {
@@ -118,22 +122,24 @@ const NewProperties = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      blockUI("Creando propiedad...");  
+      blockUI("Creando propiedad...");
       const response = await fetch("http://localhost:8080/real-estate/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         navigate(`/buy/${data.id}`);
         console.log("Propiedad creada:", data);
       } else if (response.status === 403) {
-        console.error("Error 403: Forbidden. Verifica el token o permisos de autenticación.");
+        console.error(
+          "Error 403: Forbidden. Verifica el token o permisos de autenticación."
+        );
       } else {
         console.error("Error al crear la propiedad:", response.status);
         const errorData = await response.text();
@@ -144,7 +150,6 @@ const NewProperties = () => {
     }
     unblockUI();
   };
-  
 
   const handleTermsChange = (e) => {
     setFormData({

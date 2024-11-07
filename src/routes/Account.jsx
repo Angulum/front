@@ -5,6 +5,8 @@ import { AccountEstates } from "../components/account/Estates";
 import { cn } from "../lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../lib/context/useUser";
+import { useLanguage } from "../lib/context/useLang";
+import { translations } from "../lib/translations";
 
 export const Account = () => {
   const [activeTab, setActiveTab] = useState("general");
@@ -15,6 +17,7 @@ export const Account = () => {
 
   const { user, logout, loading } = useUser();
   const navigate = useNavigate();
+  const { language } = useLanguage();
 
   useEffect(() => {
     if (!user) {
@@ -31,7 +34,7 @@ export const Account = () => {
           <div className="h-20 border-b border-black/10 flex items-center px-6">
             <Link to="/" className="flex items-center gap-1 font-semibold">
               <ChevronLeftIcon className="w-5 h-5" />
-              <span>Volver</span>
+              <span>{translations[language].back}</span>
             </Link>
           </div>
           <nav className="flex-1">
@@ -46,7 +49,7 @@ export const Account = () => {
                     }
                   )}
                 >
-                  General
+                  {translations[language].general}
                 </button>
               </li>
               <li>
@@ -59,7 +62,7 @@ export const Account = () => {
                     }
                   )}
                 >
-                  Propiedades
+                  {translations[language].estates}
                 </button>
               </li>
             </ul>
@@ -72,13 +75,13 @@ export const Account = () => {
             className="px-7 py-2 font-semibold bg-red-500 rounded-md text-whit flex items-center text-white justify-center gap-2 w-full"
           >
             <LogOutIcon className="w-5 h-5" />
-            <span>Cerrar sesión</span>
+            <span>{translations[language].logout}</span>
           </button>
         </div>
       </div>
 
       <div className="overflow-y-scroll relative w-full">
-        <div className="sticky top-0 bg-white z-30 w-full border-b border-black/10 h-20 flex items-center px-10"></div>
+        <div className="sticky z-[-1] top-0 bg-white w-full border-b border-black/10 h-20 flex items-center px-10"></div>
 
         <div className="sticky p-12">
           {activeTab === "general" && <AccountGeneral />}

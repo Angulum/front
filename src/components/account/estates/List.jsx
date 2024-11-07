@@ -16,7 +16,9 @@ const PropertyItem = ({ location, type, price, handleDelete }) => {
       {openDeleteModal && (
         <Modal>
           <div className="p-2 bg-white rounded-lg">
-            <h2 className="text-lg font-bold mb-4">{translations[language].deleteRE}</h2>
+            <h2 className="text-lg font-bold mb-4">
+              {translations[language].deleteRE}
+            </h2>
             <p>{translations[language].deleteREQ}</p>
             <div className="flex justify-end mt-4 gap-2">
               <button
@@ -42,22 +44,6 @@ const PropertyItem = ({ location, type, price, handleDelete }) => {
         </div>
         <div className="text-gray-700 text-lg">$ {price} ARS</div>
         <div className="flex space-x-4">
-          <button className="text-gray-600 hover:text-gray-800">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.862 2.487a2.25 2.25 0 113.18 3.18L7.443 18.265a4.5 4.5 0 01-1.62 1.05l-3.282 1.094 1.094-3.282a4.5 4.5 0 011.05-1.62L16.862 2.487z"
-              />
-            </svg>
-          </button>
           <button
             className="text-gray-600 hover:text-gray-800"
             onClick={() => setOpenDeleteModal(true)}
@@ -90,6 +76,7 @@ const PropertyList = () => {
 
   const { user } = useUser();
   const { blockUI, unblockUI } = useBlockUI();
+  const { language } = useLanguage();
 
   useEffect(() => {
     fetch(import.meta.env.VITE_BACKEND_URL + "/real-estate/self", {

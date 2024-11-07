@@ -9,6 +9,7 @@ import Input from "../../ui/Input";
 
 import { useLanguage } from "../../../lib/context/useLang";
 import { translations } from "../../../lib/translations";
+import { Button } from "@material-tailwind/react";
 
 const Hero = () => {
   const { language } = useLanguage();
@@ -20,18 +21,17 @@ const Hero = () => {
       <h1 className="text-[50px] font-semibold">
         {translations[language].slogan}
       </h1>
-      <h2 className="text-[24px]">
-        {translations[language].heroDesc}
-      </h2>
-      <Input
-        type="text"
-        className="w-[80%] mt-6"
-        placeholder="Casa, departamento en el centro..."
-      />
-      <p className="mt-10">
+      <h2 className="text-[24px]">{translations[language].heroDesc}</h2>
+      <a
+        className="mt-10 bg-white text-black px-6 py-2 rounded-lg w-full"
+        href="/buy"
+      >
+        {translations[language].heroButton}
+      </a>
+      {/* <p className="mt-10">
         {translations[language].heroQuestion}
-      </p>
-      <div className="mt-4 flex gap-6">
+      </p> */}
+      {/* <div className="mt-4 flex gap-6">
         <Link to={"/buy"}>
           <OverviewButton
             label="Alquilar"
@@ -50,7 +50,7 @@ const Hero = () => {
             icon={<MegaHomeIcon className="w-7 h-7" />}
           />
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

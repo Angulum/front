@@ -1,18 +1,27 @@
 export const translations = {
   es: {
+    heroButton: "Ver todas las propiedades",
     back: "Volver",
     changeTheme: "Cambiar a Modo Oscuro",
     changeLanguage: "Cambiar a Inglés",
 
+    logout: "Cerrar sesión",
+    general: "General",
+    estates: "Propiedades",
     //ACCOUNT
-      // ESTATES
-      tusPropiedades: "Tus propiedades",
 
-      // GENERAL
+    //ACCOUNT
+    idioma: "Idioma",
+    idiomaDescription: "Cambia el idioma de la interfaz.",
+    // ESTATES
+    tusPropiedades: "Tus propiedades",
+
+    // GENERAL
     configGeneral: "Configuración General",
     infoTitle: "Tu Informacion:",
-    infoDesc: "Cualquier cambio en esta sección no modificará nada que no sea visual.",
-    
+    infoDesc:
+      "Cualquier cambio en esta sección no modificará nada que no sea visual.",
+
     nameTitle: "Nombre y apellido",
     usernameTitle: "Nombre de usuario",
     save: "Guardar cambios",
@@ -23,10 +32,12 @@ export const translations = {
     themeDescription: "Cambia el color del panel en su totalidad.",
 
     deleteAccount: "Eliminar cuenta",
-    deleteDesc: "Esta acción eliminará toda tu información, incluyendo las propiedades y estadísticas que tengas hasta ahora.",
+    deleteDesc:
+      "Esta acción eliminará toda tu información, incluyendo las propiedades y estadísticas que tengas hasta ahora.",
     deleteButton: "Eliminar",
     closeModal: "Cerrar",
-    deleteAccountConfirmText: "¿Estas seguro que deseas eliminar tu cuenta? esta accion no se puede deshacer.",
+    deleteAccountConfirmText:
+      "¿Estas seguro que deseas eliminar tu cuenta? esta accion no se puede deshacer.",
     cancel: "Cancelar",
 
     // LOGIN FORM
@@ -42,6 +53,15 @@ export const translations = {
     slogan: "Tu hogar, nuestro compromiso",
     heroDesc: "Busca inmuebles en venta o en alquiler en Rosario.",
     heroQuestion: "¿Que estas buscando ahora?",
+
+    expensive: "Mas caros",
+
+    // ADMIN REAL ESTATE LIST
+    deleteRE: "Eliminar propiedad",
+    deleteREQ: "¿Estas seguro que deseas eliminar esta propiedad?",
+    delete: "Eliminar",
+    loadingRE: "Cargando propiedades...",
+    noRE: "No tienes propiedades",
 
     // CARD
     cardContact: "Contacto del vendedor:",
@@ -67,29 +87,37 @@ export const translations = {
     recent: "Mas recientes",
     old: "Mas antiguos",
     cheapest: "Mas baratos",
-    expensive: "Mas caros",
-
-    // ADMIN REAL ESTATE LIST
-    deleteRE: "Eliminar propiedad",
-    deleteREQ: "¿Estas seguro que deseas eliminar esta propiedad?",
-    delete: "Eliminar",
-    loadingRE: "Cargando propiedades...",
-    noRE: "No tienes propiedades",
-    
   },
   en: {
+    heroButton: "See all properties",
     back: "Back",
     changeTheme: "Switch to Dark Mode",
     changeLanguage: "Switch to Spanish",
 
-    //ACCOUNT
-      // ESTATES
-      tusPropiedades: "Your Real Estate.",
+    expensive: "Most expensive",
 
-      // GENERAL
+    // ADMIN REAL ESTATE LIST
+    deleteRE: "Delete Real Estate",
+    deleteREQ: "Are you sure you want to delete this real estate?",
+    delete: "Delete",
+    loadingRE: "Loading real estate...",
+    noRE: "You don't have any Real Estate",
+
+    logout: "Logout",
+    general: "General",
+    estates: "Estates",
+    //ACCOUNT
+
+    idioma: "Language",
+    idiomaDescription: "Change the language of the interface.",
+    // ESTATES
+    tusPropiedades: "Your Real Estate.",
+
+    // GENERAL
     configGeneral: "General Settings",
     infoTitle: "Your details:",
-    infoDesc: "Any change in this section will only modify visuals of the page.",
+    infoDesc:
+      "Any change in this section will only modify visuals of the page.",
     nameTitle: "Full name",
     usernameTitle: "Username",
     save: "Save changes",
@@ -99,10 +127,12 @@ export const translations = {
     themeDescription: "Change the color of the panel entirely.",
 
     deleteAccount: "Delete account",
-    deleteDesc: "This accion will eliminate all your data, including Real Estates and statistics created.",
+    deleteDesc:
+      "This accion will eliminate all your data, including Real Estates and statistics created.",
     deleteButton: "Delete",
     closeModal: "Close",
-    deleteAccountConfirmText: "Are you sure you want to delete your account? you will not be able to undo this action.",
+    deleteAccountConfirmText:
+      "Are you sure you want to delete your account? you will not be able to undo this action.",
     cancel: "Cancel",
 
     // LOGIN FORM
@@ -142,14 +172,5 @@ export const translations = {
     recent: "Most recent",
     old: "Oldest",
     cheapest: "Cheapest",
-    expensive: "Most expensive",
-
-    // ADMIN REAL ESTATE LIST
-    deleteRE: "Delete Real Estate",
-    deleteREQ: "Are you sure you want to delete this real estate?",
-    delete: "Delete",
-    loadingRE: "Loading real estate...",
-    noRE: "You don't have any Real Estate",
-
   },
 };

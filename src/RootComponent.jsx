@@ -20,6 +20,8 @@ const RootComponent = () => {
         const data = await response.json();
         if (data.front) {
           setIsEnabled(true);
+        } else {
+          setIsEnabled(false);
         }
       } catch (error) {
         console.error("Error checking frontend status:", error);
