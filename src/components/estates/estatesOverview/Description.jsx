@@ -17,9 +17,6 @@ const Description = ({ estate }) => {
         <li>
           <strong>Cocheras:</strong> {estate.parking}
         </li>
-        <li>
-          <strong>Expensas:</strong> ARS 160.000
-        </li>
       </ul>
     </div>
   );

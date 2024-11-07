@@ -1,5 +1,9 @@
 import Button from "../../ui/Button";
 
+const enableButton = (formData) => {
+  return formData.descripcion
+};
+
 const Docs = ({
   nextStep,
   prevStep,
@@ -62,6 +66,7 @@ const Docs = ({
           type="button"
           onClick={nextStep}
           className="bg-gray-800 text-white py-2 rounded-md ml-2"
+          disabled={!enableButton(formData)}
         >
           Siguiente paso
         </Button>

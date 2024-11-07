@@ -1,5 +1,23 @@
 import Button from "../../ui/Button";
 
+const enableButton = (formData) => {
+  return (
+    formData.name &&
+    formData.location &&
+    formData.price &&
+    formData.expenses &&
+    formData.type &&
+    formData.contract &&
+    formData.contact &&
+    formData.ambients &&
+    formData.rooms &&
+    formData.bathrooms &&
+    formData.squareFeet &&
+    formData.parking &&
+    formData.antiquity
+  );
+};
+
 const Atribute = ({ nextStep, formData, handleChange }) => (
   <div className="w-full min-w-full space-y-4">
     <h2 className="text-xl font-semibold mb-6 text-center">Detalles de la Propiedad</h2>
@@ -172,7 +190,10 @@ const Atribute = ({ nextStep, formData, handleChange }) => (
         </div>
       </div>
 
-      <Button type="button" onClick={nextStep} className="w-full bg-gray-800 text-white py-2 rounded-md mt-4">
+      <Button type="button" 
+        onClick={nextStep}
+        disabled={!enableButton(formData)} 
+        className="w-full bg-gray-800 text-white py-2 rounded-md mt-4">
         Siguiente paso
       </Button>
     </form>
