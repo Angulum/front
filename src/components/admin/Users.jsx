@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Modal from "../ui/Modal";
 import { Button, Spinner } from "@material-tailwind/react";
+import { useBlockUI } from "../../lib/context/useBlockUI";
 
 const Users = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,8 @@ const Users = () => {
     email: "",
     role: "",
   });
+
+  const { blockUI, unblockUI } = useBlockUI();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -61,14 +64,14 @@ const Users = () => {
 
   const saveEdit = async () => {
     try {
+      blockUI("Guardando cambios...");
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/user/edit/${selectedUser.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTczMDQ5MDc1NSwiZXhwIjoxNzMwNDk0MzU1fQ.KjYkOxhte-i9_58jlQMh5MiLiu3PqXPLDLZYk239lDc",
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
 
           body: JSON.stringify(editForm),
@@ -88,14 +91,19 @@ const Users = () => {
     } catch (error) {
       console.error("Error updating user:", error);
     }
+    unblockUI();
   };
 
   const deleteUser = async () => {
     try {
+      blockUI("Borrando usuario...");
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/user/delete/${selectedUser.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/id/${selectedUser.id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
@@ -108,6 +116,7 @@ const Users = () => {
     } catch (error) {
       console.error("Error deleting user:", error);
     }
+    unblockUI();
   };
 
   return (

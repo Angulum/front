@@ -123,7 +123,7 @@ const NewProperties = () => {
     e.preventDefault();
     try {
       blockUI("Creando propiedad...");
-      const response = await fetch("http://localhost:8080/real-estate/create", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/real-estate/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
