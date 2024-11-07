@@ -30,13 +30,15 @@ const generateProperties = () => {
 };
 
 const Buy = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [properties, setProperties] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
+
   const [search, setSearch] = useState("");
-  const [orderBy, setOrderBy] = useState("id");
-  const [ascending, setAscending] = useState(true);
+  const [propertyType, setPropertyType] = useState("HOUSE");
+  const [operation, setOperation] = useState("BUY");
+
   const [totalPages, setTotalPages] = useState(0);
 
   const itemsPerPage = 5;
@@ -45,13 +47,13 @@ const Buy = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
     const fetchProperties = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/real-estate/page?page=${
             currentPage - 1
-          }&size=${itemsPerPage}&sortBy=${orderBy}&ascending=${ascending}${
+          }&size=${itemsPerPage}&type=${propertyType}&contract=${operation}${
             search ? `&search=${search}` : ""
           }`,
           {
@@ -63,17 +65,46 @@ const Buy = () => {
         const data = await response.json();
         setProperties(data.content);
         setTotalPages(data.totalPages);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching properties:", error);
-        setLoading(false);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProperties();
-  }, [ascending, currentPage, orderBy, search]);
+  }, [currentPage, operation, propertyType]);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/real-estate/page?page=${
+            currentPage - 1
+          }&size=${itemsPerPage}&type=${propertyType}&contract=${operation}${
+            search ? `&search=${search}` : ""
+          }`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        setProperties(data.content);
+        setTotalPages(data.totalPages);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    };
+
+    const debounceFetch = setTimeout(() => {
+      setLoading(true);
+      fetchProperties().finally(() => setLoading(false));
+    }, 1000);
+
+    return () => clearTimeout(debounceFetch);
+  }, [search]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -94,7 +125,11 @@ const Buy = () => {
       <Navbar />
 
       <div className="mt-20">
-        <Searcher />
+        <Searcher
+          setSearch={setSearch}
+          setOperation={setOperation}
+          setPropertyType={setPropertyType}
+        />
         <div className="flex flex-col gap-4 relative bg-white">
           {loading ? (
             <CardGridLoading />

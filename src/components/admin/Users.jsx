@@ -22,8 +22,7 @@ const Users = () => {
           `${import.meta.env.VITE_BACKEND_URL}/user/get`,
           {
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTczMDQ5MDc1NSwiZXhwIjoxNzMwNDk0MzU1fQ.KjYkOxhte-i9_58jlQMh5MiLiu3PqXPLDLZYk239lDc",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -80,9 +79,7 @@ const Users = () => {
         const updatedUser = await response.json();
         setUsers(
           //find user and change with the edit form data
-            users.map((user) =>
-                user.id === updatedUser.id ? editForm : user
-            )
+          users.map((user) => (user.id === updatedUser.id ? editForm : user))
         );
         closeModal();
       } else {
@@ -131,23 +128,27 @@ const Users = () => {
                 <th className="py-2">Nombre</th>
                 <th className="py-2">Email</th>
                 <th className="py-2">Rol</th>
-                <th className="py-2">Cantidad de Propiedades</th>
                 <th className="py-2">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td className="py-2">{user.name}</td>
-                  <td className="py-2">{user.email}</td>
-                  <td className="py-2">{user.role}</td>
-                  <td className="py-2">{user.propertyCount}</td>
-                  <td className="py-2">
-                    <Button onClick={() => handleEdit(user)}>Editar</Button>
-                    <Button onClick={() => handleDelete(user)}>Borrar</Button>
-                  </td>
-                </tr>
-              ))}
+              {users.map((user) => {
+                if (user.role === "ADMIN") {
+                  return null;
+                }
+
+                return (
+                  <tr key={user.id}>
+                    <td className="py-2">{user.name}</td>
+                    <td className="py-2">{user.email}</td>
+                    <td className="py-2">{user.role}</td>
+                    <td className="py-2">
+                      <Button onClick={() => handleEdit(user)}>Editar</Button>
+                      <Button onClick={() => handleDelete(user)}>Borrar</Button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
@@ -155,35 +156,45 @@ const Users = () => {
 
       {isEditModalOpen && (
         <Modal onClose={closeModal}>
-          <h2>Editar Usuario</h2>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <label>Nombre:</label>
-            <input
-              type="text"
-              name="name"
-              value={editForm.name}
-              onChange={handleEditChange}
-              className="input"
-            />
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={editForm.email}
-              onChange={handleEditChange}
-              className="input"
-            />
-            <label>Rol:</label>
-            <input
-              type="text"
-              name="role"
-              value={editForm.role}
-              onChange={handleEditChange}
-              className="input"
-            />
-            <Button onClick={saveEdit}>Guardar</Button>
-            <Button onClick={closeModal}>Cerrar</Button>
-          </form>
+          <div className="flex flex-col">
+            <h2 className="text-2xl font-bold">Editar usuario</h2>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div className="flex flex-col gap-1">
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  className="border border-black/10 rounded-lg p-2"
+                  name="name"
+                  value={editForm.name}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={editForm.email}
+                  onChange={handleEditChange}
+                  className="border border-black/10 rounded-lg p-2"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label>Rol:</label>
+                <input
+                  type="text"
+                  name="role"
+                  value={editForm.role}
+                  onChange={handleEditChange}
+                  className="border border-black/10 rounded-lg p-2"
+                />
+              </div>
+              <div className="flex justify-end gap-2 mt-3">
+                <Button onClick={saveEdit}>Guardar</Button>
+                <Button onClick={closeModal}>Cerrar</Button>
+              </div>
+            </form>
+          </div>
         </Modal>
       )}
 

@@ -13,7 +13,7 @@ const Form = ({ isActive }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhone] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
-  const [cuit] = useState("");
+  const [cuit, setCuit] = useState("");
 
   const [error, setError] = useState(null);
 
@@ -65,7 +65,7 @@ const Form = ({ isActive }) => {
       password,
       name,
       phoneNumber,
-      cuit 
+      cuit,
     };
 
     try {

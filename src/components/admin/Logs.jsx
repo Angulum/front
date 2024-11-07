@@ -5,14 +5,19 @@ const Logs = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [size] = useState(5);
+  const [size] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
 
   const fetchLogs = async (page) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/logs?page=${page}&size=${size}`
+        `${import.meta.env.VITE_BACKEND_URL}/logs?page=${page}&size=${size}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("Error al obtener los logs");

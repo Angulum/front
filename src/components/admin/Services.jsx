@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { Switch } from "@material-tailwind/react";
+import { Spinner, Switch } from "@material-tailwind/react";
 
 const Services = () => {
   const [register, setRegister] = useState(false);
   const [front, setFront] = useState(false);
   const [logs, setLogs] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchServiceStatus = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           import.meta.env.VITE_BACKEND_URL + "/services"
@@ -24,6 +26,9 @@ const Services = () => {
         }
       } catch (error) {
         console.error("Error obteniendo el estado de los servicios:", error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -76,39 +81,45 @@ const Services = () => {
         Podrás manejar el funcionamiento completo de los componentes agregados
       </p>
 
-      <div className="w-full border border-black/10 rounded-lg p-8 mt-8">
-        <div className="flex justify-between w-full items-center mb-4">
-          <p>
-            Página principal{" "}
-            <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs">
-              ¡Cuidado!
-            </span>
-          </p>
-          <Switch
-            color="blue"
-            checked={front}
-            onChange={(e) => handleSwitchChange("front", e.target.checked)}
-          />
+      {loading ? (
+        <div className="w-full flex justify-center items-center mt-5">
+          <Spinner color="blue" size="large" />
         </div>
+      ) : (
+        <div className="w-full border border-black/10 rounded-lg p-8 mt-8">
+          <div className="flex justify-between w-full items-center mb-4">
+            <p>
+              Página principal{" "}
+              <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                ¡Cuidado!
+              </span>
+            </p>
+            <Switch
+              color="blue"
+              checked={front}
+              onChange={(e) => handleSwitchChange("front", e.target.checked)}
+            />
+          </div>
 
-        <div className="flex justify-between w-full items-center mb-4">
-          <p>Registro de usuarios</p>
-          <Switch
-            color="blue"
-            checked={register}
-            onChange={(e) => handleSwitchChange("register", e.target.checked)}
-          />
-        </div>
+          <div className="flex justify-between w-full items-center mb-4">
+            <p>Registro de usuarios</p>
+            <Switch
+              color="blue"
+              checked={register}
+              onChange={(e) => handleSwitchChange("register", e.target.checked)}
+            />
+          </div>
 
-        <div className="flex justify-between w-full items-center mb-4">
-          <p>Logs</p>
-          <Switch
-            color="blue"
-            checked={logs}
-            onChange={(e) => handleSwitchChange("logs", e.target.checked)}
-          />
+          <div className="flex justify-between w-full items-center mb-4">
+            <p>Logs</p>
+            <Switch
+              color="blue"
+              checked={logs}
+              onChange={(e) => handleSwitchChange("logs", e.target.checked)}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

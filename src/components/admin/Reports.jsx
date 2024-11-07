@@ -65,7 +65,12 @@ const Reports = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(import.meta.env.VITE_BACKEND_URL + "/report/stats")
+      fetch(import.meta.env.VITE_BACKEND_URL + "/api/report/json", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           const reportData = [
