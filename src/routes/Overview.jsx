@@ -26,8 +26,11 @@ const Overview = () => {
       <Section className="overflow-hidden relative flex items-center justify-center ">
         <div className="relative h-full w-full bg-white flex justify-center">
           <Hero />
-          <img src="./hero.jpg" className="object-cover h-full w-screen" />
-          <div className="absolute inset-0 bg-black opacity-50" />
+          <img
+            src="./hero.jpg"
+            className="object-cover h-full w-screen"
+          />
+          <div className="absolute inset-0 bg-black opacity-70" />
         </div>
       </Section>
 

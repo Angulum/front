@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../../lib/context/useUser";
+import { useState, useEffect } from "react";
 
 import HomeIcon from "../../icons/HomeIcon";
 import OverviewButton from "./OverviewButton";
@@ -13,8 +14,37 @@ import { Button } from "@material-tailwind/react";
 
 const Hero = () => {
   const { language } = useLanguage();
-
   const { user } = useUser();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const router = useNavigate();
+
+  useEffect(() => {
+    if (searchTerm) {
+      fetch(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/real-estate/page?search=${searchTerm}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setSearchResults(data.content);
+        });
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchTerm]);
+
+  const handleSearch = () => {
+    router(`/buy?search=${searchTerm}`);
+  };
+
+  const handleClickCard = (id) => {
+    router(`/buy/${id}`);
+  };
 
   return (
     <div className="flex my-auto items-center text-center text-white flex-col z-[17] absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
@@ -22,35 +52,44 @@ const Hero = () => {
         {translations[language].slogan}
       </h1>
       <h2 className="text-[24px]">{translations[language].heroDesc}</h2>
-      <a
-        className="mt-10 bg-white text-black px-6 py-2 rounded-lg w-full"
-        href="/buy"
-      >
-        {translations[language].heroButton}
-      </a>
-      {/* <p className="mt-10">
-        {translations[language].heroQuestion}
-      </p> */}
-      {/* <div className="mt-4 flex gap-6">
-        <Link to={"/buy"}>
-          <OverviewButton
-            label="Alquilar"
-            icon={<HomeIcon className="w-7 h-7" />}
+      <div className="relative mt-4 w-full max-w-md">
+        <div className="flex">
+          <Input
+            type="text"
+            className="w-full px-4 py-2 rounded-l-lg rounded-r-none placeholder:text-gray-700"
+            placeholder="Buscar dirección, nombre, descripción..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
           />
-        </Link>
-        <Link to={"/buy"}>
-          <OverviewButton
-            label="Comprar"
-            icon={<HotelIcon className="w-7 h-7" />}
-          />
-        </Link>
-        <Link to={user ? "/vender" : "/vender"}>
-          <OverviewButton
-            label="Vender"
-            icon={<MegaHomeIcon className="w-7 h-7" />}
-          />
-        </Link>
-      </div> */}
+          <Button
+            className="px-4 py-2 rounded-l-none rounded-r-lg"
+            onClick={handleSearch}
+          >
+            Buscar
+          </Button>
+        </div>
+        {isFocused && Array.isArray(searchResults) && (
+          <ul className="absolute left-0 right-0 bg-white text-black mt-2 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+            {searchResults.length > 0 ? (
+              searchResults.map((result) => (
+                <li
+                  key={result.id}
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onMouseDown={() => handleClickCard(result.id)}
+                >
+                  {result.name}
+                </li>
+              ))
+            ) : (
+              <li className="px-4 py-2 text-gray-500">
+                No se encontraron resultados
+              </li>
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
