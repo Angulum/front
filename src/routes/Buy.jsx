@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate, useSearchParams } from "react-router-dom"; // Importa useSearchParams
 import Navbar from "../components/navbar/Navbar";
 import CardGrid from "../components/estates/CardPublications/CardGrid";
 import Footer from "../components/Footer";
@@ -7,104 +7,56 @@ import Searcher from "../components/estates/CardPublications/Searcher";
 import { Spinner } from "@material-tailwind/react";
 import CardGridLoading from "../components/estates/CardPublications/CardGridLoading";
 
-// Crear un array de 20 propiedades simuladas
-const generateProperties = () => {
-  return Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1, // Asegúrate de tener un id único
-    title: `Casa ${index + 1}`,
-    location: `Ubicación ${index + 1}`,
-    rooms: Math.floor(Math.random() * 5) + 1,
-    bathrooms: Math.floor(Math.random() * 3) + 1,
-    size: `${Math.floor(Math.random() * 200) + 50} m²`,
-    price: `$${(
-      Math.floor(Math.random() * 500000) + 200000
-    ).toLocaleString()} ARS / mensual`,
-    description:
-      "Descripción de la propiedad. Detalles adicionales pueden incluir tamaño, características especiales, etc.",
-    image: "https://via.placeholder.com/226x180",
-    sellerName: `Vendedor ${index + 1}`,
-    sellerPhone: `341 319 24${index.toString().padStart(2, "0")}`,
-    sellerEmail: `vendedor${index + 1}@gmail.com`,
-    sellerImage: "https://via.placeholder.com/40",
-  }));
-};
-
 const Buy = () => {
   const [loading, setLoading] = useState(false);
   const [properties, setProperties] = useState([]);
-
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [search, setSearch] = useState("");
   const [propertyType, setPropertyType] = useState("HOUSE");
   const [operation, setOperation] = useState("BUY");
-
   const [totalPages, setTotalPages] = useState(0);
-
   const itemsPerPage = 5;
   const containerRef = useRef(null);
 
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const search = searchParams.get("search") || "";
+
+  const fetchProperties = async () => {
+    setLoading(true);
+    setProperties([]);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/real-estate/page?page=${
+          currentPage - 1
+        }&size=${itemsPerPage}&type=${propertyType}&contract=${operation}${
+          search ? `&search=${search}` : ""
+        }`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setProperties(data.content);
+      setTotalPages(data.totalPages);
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/real-estate/page?page=${
-            currentPage - 1
-          }&size=${itemsPerPage}&type=${propertyType}&contract=${operation}${
-            search ? `&search=${search}` : ""
-          }`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await response.json();
-        setProperties(data.content);
-        setTotalPages(data.totalPages);
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchProperties();
-  }, [currentPage, operation, propertyType]);
+  }, [currentPage, operation, propertyType, search]);
 
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/real-estate/page?page=${
-            currentPage - 1
-          }&size=${itemsPerPage}&type=${propertyType}&contract=${operation}${
-            search ? `&search=${search}` : ""
-          }`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await response.json();
-        setProperties(data.content);
-        setTotalPages(data.totalPages);
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      }
-    };
-
-    const debounceFetch = setTimeout(() => {
-      setLoading(true);
-      fetchProperties().finally(() => setLoading(false));
-    }, 1000);
-
-    return () => clearTimeout(debounceFetch);
-  }, [search]);
+  const handleSearchChange = (newSearch) => {
+    setSearchParams({ search: newSearch });
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -126,7 +78,7 @@ const Buy = () => {
 
       <div className="mt-20">
         <Searcher
-          setSearch={setSearch}
+          setSearch={handleSearchChange} // Actualiza la URL al cambiar la búsqueda
           setOperation={setOperation}
           setPropertyType={setPropertyType}
         />

@@ -10,31 +10,40 @@ import Input from "../../ui/Input";
 
 import { useLanguage } from "../../../lib/context/useLang";
 import { translations } from "../../../lib/translations";
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 
 const Hero = () => {
-  const { language } = useLanguage();
-  const { user } = useUser();
-
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
 
+  const { language } = useLanguage();
+  const { user } = useUser();
   const router = useNavigate();
 
   useEffect(() => {
     if (searchTerm) {
-      fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/real-estate/page?search=${searchTerm}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setSearchResults(data.content);
-        });
+      setLoading(true);
+      const debounceFetch = setTimeout(() => {
+        fetch(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/real-estate/page?search=${searchTerm}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setSearchResults(data.content);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }, 1000);
+
+      return () => clearTimeout(debounceFetch);
     } else {
       setSearchResults([]);
+      setLoading(false);
     }
   }, [searchTerm]);
 
@@ -72,7 +81,11 @@ const Hero = () => {
         </div>
         {isFocused && Array.isArray(searchResults) && (
           <ul className="absolute left-0 right-0 bg-white text-black mt-2 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-            {searchResults.length > 0 ? (
+            {loading ? (
+              <li className="px-4 py-2">
+                <Spinner size="sm" className="mx-auto" />
+              </li>
+            ) : searchResults.length > 0 ? (
               searchResults.map((result) => (
                 <li
                   key={result.id}
