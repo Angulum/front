@@ -31,8 +31,8 @@ const NewProperties = () => {
     uniqueClicks: 0,
     contactClicks: 0,
     images: [
-      "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-      "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      // "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      // "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
     ],
     favoriteCount: 0,
     ownerId: user.id,
@@ -46,45 +46,52 @@ const NewProperties = () => {
     });
   };
 
-  // Subir imágenes
   const handleImageUpload = (e) => {
-    return;
-
     const files = Array.from(e.target.files);
 
-    files.map((file) => {
+    files.forEach((file) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
+
+      reader.onload = async () => {
         const base64 = reader.result.split(",")[1];
 
-        fetch(
-          "https://api.imgbb.com/1/upload?key=" +
-            import.meta.env.VITE_IMGBB_API_KEY,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              key: "c9c2c3b6f6c1f9d3e6f5b2e2b0c2f4a1",
-              image: base64,
-            }),
-          }
-        )
-          .then((res) => res.json())
+        // Convertir base64 a Blob
+        const response = await fetch(`data:image/png;base64,${base64}`);
+        const blob = await response.blob();
+
+        // Crear FormData y agregar el archivo
+        const formData = new FormData();
+        formData.append("image", blob, file.name);
+
+        blockUI("Subiendo imagenes...");
+
+        // Realizar la solicitud de subida
+        fetch(import.meta.env.VITE_BACKEND_URL + "/real-estate/upload-image", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error("Error al subir la imagen");
+            return res.json();
+          })
           .then((data) => {
-            console.log("Imagen subida:", data);
+            setFormData((prev) => ({
+              ...prev,
+              images: [...prev.images, data.url],
+            }));
+          })
+          .catch((err) => {
+            console.error("Error al subir la imagen:", err);
+          })
+          .finally(() => {
+            unblockUI();
           });
       };
     });
-
-    setFormData((prev) => ({
-      ...prev,
-      images: [...prev.images, ...files],
-    }));
-
-    console.log("Imagenes subidas:", formData.images);
   };
 
   // Subir documentos
@@ -123,14 +130,17 @@ const NewProperties = () => {
     e.preventDefault();
     try {
       blockUI("Creando propiedad...");
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/real-estate/create", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/real-estate/create",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -158,6 +168,13 @@ const NewProperties = () => {
     });
   };
 
+  const removeImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl relative overflow-hidden">
@@ -179,6 +196,7 @@ const NewProperties = () => {
             handleDragOver={handleDragOver}
             handleDropImages={handleDropImages}
             handleDropDocuments={handleDropDocuments}
+            removeImage={removeImage}
           />
         )}
         {step === 3 && (

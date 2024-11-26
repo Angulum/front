@@ -1,7 +1,8 @@
+import React from "react";
 import Button from "../../ui/Button";
 
 const enableButton = (formData) => {
-  return formData.descripcion
+  return formData.descripcion;
 };
 
 const Docs = ({
@@ -14,6 +15,7 @@ const Docs = ({
   handleDragOver,
   handleDropImages,
   handleDropDocuments,
+  removeImage,
 }) => (
   <div className="w-full min-w-full space-y-4">
     <h2 className="text-xl font-semibold mb-6 text-center">
@@ -54,21 +56,30 @@ const Docs = ({
         </label>
       </div>
 
-      <div className="flex justify-between mt-6">
-        <Button
-          type="button"
-          onClick={prevStep}
-          className="bg-gray-300 text-gray-700 py-2 rounded-md mr-2"
-        >
-          Volver atrás
-        </Button>
-        <Button
-          type="button"
-          onClick={nextStep}
-          className="bg-gray-800 text-white py-2 rounded-md ml-2"
-          disabled={!enableButton(formData)}
-        >
-          Siguiente paso
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {formData.images &&
+          formData.images.map((image, index) => (
+            <div key={index} className="relative">
+              <img
+                src={image}
+                alt={`Preview ${index}`}
+                className="w-full h-32 object-cover rounded-md"
+              />
+              <button
+                type="button"
+                onClick={() => removeImage(index)}
+                className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
+              >
+                &times;
+              </button>
+            </div>
+          ))}
+      </div>
+
+      <div className="flex justify-between">
+        <Button onClick={prevStep}>Anterior</Button>
+        <Button onClick={nextStep} disabled={!enableButton(formData)}>
+          Siguiente
         </Button>
       </div>
     </form>
