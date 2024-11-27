@@ -51,11 +51,16 @@ const Buy = () => {
   };
 
   useEffect(() => {
-    fetchProperties();
-  }, [currentPage, operation, propertyType, search]);
+    const debounceFetch = setTimeout(() => {
+      fetchProperties();
+    }, 700);
+
+    return () => clearTimeout(debounceFetch);
+  }, [currentPage, propertyType, operation, search]);
 
   const handleSearchChange = (newSearch) => {
     setSearchParams({ search: newSearch });
+    setCurrentPage(1);
   };
 
   const handlePageChange = (pageNumber) => {
@@ -82,7 +87,7 @@ const Buy = () => {
           setOperation={setOperation}
           setPropertyType={setPropertyType}
         />
-        <div className="flex flex-col gap-4 relative bg-white">
+        <div className="flex flex-col gap-4 relative bg-white min-h-[90vh]">
           {loading ? (
             <CardGridLoading />
           ) : (

@@ -8,7 +8,8 @@ const Footer = ({ inverted }) => {
         <Logo />
 
         <p>
-          © 2024 by <span className="font-semibold">Angulum</span>. Todos los derechos reservados.
+          © 2024 by <span className="font-semibold">Angulum</span>. Todos los
+          derechos reservados.
         </p>
       </div>
     </footer>
