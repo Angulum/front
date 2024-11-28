@@ -88,11 +88,20 @@ const Hero = () => {
             ) : searchResults.length > 0 ? (
               searchResults.map((result) => (
                 <li
-                  key={result.id}
-                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                   onMouseDown={() => handleClickCard(result.id)}
+                  key={result.id}
+                  className="grid grid-cols-3 cursor-pointer hover:bg-gray-100"
                 >
-                  {result.name}
+                  <img src={result.images[0]} className="w-full col-span-1" />
+                  <div
+                    key={result.id}
+                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer col-span-2 flex text-start flex-col"
+                  >
+                    <p>
+                      <strong>{result.name}</strong>
+                    </p>
+                    <p>{result.location}</p>
+                  </div>
                 </li>
               ))
             ) : (
