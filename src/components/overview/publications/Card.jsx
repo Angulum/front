@@ -15,7 +15,7 @@ const PublicationCard = ({ publication }) => {
       <div>
         <img
           src={
-            publication.images.lenght > 0
+            publication.images && publication.images.length > 0
               ? publication.images[0]
               : "/image-not-found.png"
           }

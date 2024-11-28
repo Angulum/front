@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
-import Tag from "../../ui/Tag";
 import { cn } from "../../../lib/utils";
 
 import { useLanguage } from "../../../lib/context/useLang";

@@ -75,7 +75,9 @@ const OverviewEstates = () => {
   const addAnswer = (updatedQuestion) => {
     setQuestions((prev) =>
       prev.map((q) =>
-        q.id === updatedQuestion.id ? { ...q, answer: updatedQuestion.answer } : q
+        q.id === updatedQuestion.id
+          ? { ...q, answer: updatedQuestion.answer }
+          : q
       )
     );
   };
@@ -121,8 +123,8 @@ const OverviewEstates = () => {
               <QuestionBox
                 realEstateId={id}
                 questions={questions}
-                addQuestion={addQuestion}
-                addAnswer={addAnswer} // Nueva función para manejar las respuestas
+                setQuestions={setQuestions}
+                realEstateOwnerId={estate.ownerId}
               />
             </div>
           )}
