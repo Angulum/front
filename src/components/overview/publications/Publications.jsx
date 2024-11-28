@@ -3,8 +3,10 @@ import PublicationCard from "./Card";
 import { useLanguage } from "../../../lib/context/useLang";
 import { translations } from "../../../lib/translations";
 import { useEffect, useState } from "react";
+import Skeleton from "../../ui/Skeleton";
 
 const Publications = () => {
+  const [loading, setLoading] = useState(true);
   const [estates, setEstates] = useState([]);
   const { language } = useLanguage();
 
@@ -17,6 +19,9 @@ const Publications = () => {
       .then((res) => res.json())
       .then((data) => {
         setEstates(data.content);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -30,10 +35,14 @@ const Publications = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-12">
-        {estates &&
-          estates.map((p, i) => {
-            return <PublicationCard key={i} publication={p} />;
-          })}
+        {loading
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <Skeleton className="w-full h-[400px]" key={i} />
+            ))
+          : estates &&
+            estates.map((p, i) => {
+              return <PublicationCard key={i} publication={p} />;
+            })}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import { Spinner } from "@material-tailwind/react";
 import CardGridLoading from "../components/estates/CardPublications/CardGridLoading";
 
 const Buy = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [properties, setProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
