@@ -47,7 +47,7 @@ export const translations = {
     // NAVBAR
     goAdmin: "Ir a Admin",
     addRealEstate: "Agregar propiedad",
-    account: "My account",
+    account: "Mi cuenta",
 
     // HERO
     slogan: "Tu hogar, nuestro compromiso",

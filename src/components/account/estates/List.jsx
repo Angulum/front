@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../../lib/context/useUser";
+import { Link } from "react-router-dom";
 import Modal from "../../ui/Modal";
 import { useBlockUI } from "../../../lib/context/useBlockUI";
-
 import { useLanguage } from "../../../lib/context/useLang";
 import { translations } from "../../../lib/translations";
 
-const PropertyItem = ({ location, type, price, handleDelete }) => {
+const PropertyItem = ({ id, location, type, price, handleDelete }) => {
   const { language } = useLanguage();
-
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   return (
@@ -38,11 +37,16 @@ const PropertyItem = ({ location, type, price, handleDelete }) => {
         </Modal>
       )}
       <div className="flex justify-between items-center bg-white p-4 border border-black/10 rounded-lg my-4">
-        <div className="flex flex-col">
-          <span className="text-gray-700 text-lg">{location}</span>
-          <span className="text-gray-500 text-sm">{type}</span>
-        </div>
-        <div className="text-gray-700 text-lg">$ {price} ARS</div>
+        <Link
+          to={`/buy/${id}`}
+          className="flex flex-1 justify-between items-center"
+        >
+          <div className="flex flex-col">
+            <span className="text-gray-700 text-lg">{location}</span>
+            <span className="text-gray-500 text-sm">{type}</span>
+          </div>
+          <div className="text-gray-700 text-lg">$ {price} ARS</div>
+        </Link>
         <div className="flex space-x-4">
           <button
             className="text-gray-600 hover:text-gray-800"
@@ -88,8 +92,7 @@ const PropertyList = () => {
       .then((res) => res.json())
       .then((data) => setProperties(data))
       .finally(() => setLoading(false))
-      .catch((error) => {
-        console.error("Error fetching properties:", error);
+      .catch(() => {
         setError("Ocurrió un error al cargar las propiedades");
       });
   }, [user]);
